@@ -1,0 +1,43 @@
+{
+	"name": "dresscode/rules-laravel",
+	"description": "👔 Upgrades code written for Laravel 5.8 and later to Laravel 13, and rewrites models, commands and jobs to its attributes; the rest is reported with what to write instead.",
+	"keywords": ["laravel", "laravel 13", "eloquent", "larastan", "upgrade", "upgrading", "migration", "deprecations", "refactoring", "codemod", "attributes", "modernization", "dresscode"],
+	"homepage": "https://dresscode.run/upgrading-laravel",
+	"type": "dresscode-plugin",
+	"license": "MIT",
+	"authors": [
+		{
+			"name": "David Grudl",
+			"homepage": "https://davidgrudl.com"
+		}
+	],
+	"require": {
+		"php": "8.4 - 8.6",
+		"dresscode/dresscode": "dev-master"
+	},
+	"require-dev": {
+		"nette/phpstan-rules": "^1.0",
+		"nette/tester": "^2.6",
+		"phpstan/extension-installer": "^1.4",
+		"phpstan/phpstan": "^2.2"
+	},
+	"minimum-stability": "dev",
+	"prefer-stable": true,
+	"scripts": {
+		"tester": "tester tests -s",
+		"phpstan": "phpstan analyse"
+	},
+	"config": {
+		"allow-plugins": {
+			"phpstan/extension-installer": true
+		}
+	},
+	"extra": {
+		"branch-alias": {
+			"dev-master": "1.0-dev"
+		},
+		"dresscode": {
+			"upgrading": []
+		}
+	}
+}
