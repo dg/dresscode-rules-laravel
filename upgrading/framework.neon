@@ -1,0 +1,107 @@
+package: laravel/framework
+intent: deprecations
+
+since 13:
+	replacedClasses:
+		Illuminate\Foundation\Http\Middleware\ValidateCsrfToken: Illuminate\Foundation\Http\Middleware\PreventRequestForgery
+		Illuminate\Foundation\Http\Middleware\VerifyCsrfToken: Illuminate\Foundation\Http\Middleware\PreventRequestForgery
+
+	replacedMembers:
+		Illuminate\Foundation\Configuration\Middleware::validateCsrfTokens: preventRequestForgery
+		Illuminate\Queue\Events\QueueBusy::$connection: $connectionName
+
+	replacedCalls:
+		'Illuminate\Queue\Events\JobAttempted::$exceptionOccurred::get': '$this->exception !== null'
+
+since 12.51:
+	replacedMembers:
+		Illuminate\Http\Request::get: input
+		Illuminate\Support\Facades\Request::get: input
+
+since 12.50:
+	replacedMembers:
+		Illuminate\Support\Enumerable::containsManyItems: hasMany
+
+since 12.49:
+	replacedMembers:
+		Illuminate\Support\Enumerable::containsOneItem: hasSole
+
+since 12.38:
+	replacedMembers:
+		Illuminate\Console\GeneratorCommand::possibleModels: findAvailableModels
+
+since 12.5:
+	replacedMembers:
+		Illuminate\Database\Query\Grammars\PostgresGrammar::cascadeOnTrucate: cascadeOnTruncate
+
+since 12:
+	replacedClasses:
+		Illuminate\Database\Eloquent\Concerns\HasVersion7Uuids: Illuminate\Database\Eloquent\Concerns\HasUuids
+
+	forbiddenMembers:
+		'Illuminate\Database\Grammar::__construct()': 'pass the connection to the constructor, such as `new MySqlGrammar($connection)`'
+		Illuminate\Database\Grammar::setConnection: 'pass the connection to the constructor of the grammar; drop the call'
+		Illuminate\Database\Schema\Builder::setConnection: 'there is no replacement; the builder keeps the connection it was created with; drop the call'
+		Illuminate\Database\Connection::withTablePrefix: 'there is no replacement; a grammar reads the table prefix of the connection it was created with; use the grammar passed to the call as it is'
+		'Illuminate\Database\Schema\Blueprint::__construct(string $table, ...)': 'pass the connection first, such as `new Blueprint($connection, $table)`, which gives the table prefix too'
+
+since 11.42:
+	replacedMembers:
+		Illuminate\Routing\UrlGenerator::forceRootUrl: useOrigin
+		Illuminate\Support\Facades\URL::forceRootUrl: useOrigin
+
+since 11:
+	replacedCalls:
+		'Illuminate\Auth\AuthenticationException::redirectTo()': 'redirectTo(\request())'
+		'Illuminate\Cache\RateLimiting\Limit::$decayMinutes::get': '$this->decaySeconds / 60'
+		'Illuminate\Cache\RateLimiting\Limit::$decayMinutes::set': '$this->decaySeconds = $value * 60'
+		'Illuminate\Database\Schema\Blueprint::double($column, $total, ...)': 'double($column)'
+		'Illuminate\Database\Schema\Blueprint::unsignedDecimal(...$args)': 'decimal(...$args)->unsigned()'
+		'Illuminate\Database\Schema\Blueprint::unsignedDouble($column, ...)': 'double($column)->unsigned()'
+
+	forbiddenMembers:
+		'Illuminate\Database\Schema\Blueprint::float($column, $total, $places, ...)': 'pass `precision` instead of `total` and `places`, such as `float($column, precision: 53)`'
+		Illuminate\Database\Schema\Blueprint::unsignedFloat: 'call `float()` with a precision and `unsigned()`, such as `float($column, precision: 24)->unsigned()`'
+		Illuminate\Database\Schema\Blueprint::point: 'call `geometry()` or `geography()` with the subtype, such as `geography($column, ''point'')`; the column type it creates depends on the database'
+		Illuminate\Database\Schema\Blueprint::lineString: 'call `geometry()` or `geography()` with the subtype, such as `geography($column, ''linestring'')`; the column type it creates depends on the database'
+		Illuminate\Database\Schema\Blueprint::polygon: 'call `geometry()` or `geography()` with the subtype, such as `geography($column, ''polygon'')`; the column type it creates depends on the database'
+		Illuminate\Database\Schema\Blueprint::geometryCollection: 'call `geometry()` or `geography()` with the subtype, such as `geography($column, ''geometrycollection'')`; the column type it creates depends on the database'
+		Illuminate\Database\Schema\Blueprint::multiPoint: 'call `geometry()` or `geography()` with the subtype, such as `geography($column, ''multipoint'')`; the column type it creates depends on the database'
+		Illuminate\Database\Schema\Blueprint::multiLineString: 'call `geometry()` or `geography()` with the subtype, such as `geography($column, ''multilinestring'')`; the column type it creates depends on the database'
+		Illuminate\Database\Schema\Blueprint::multiPolygon: 'call `geometry()` or `geography()` with the subtype, such as `geography($column, ''multipolygon'')`; the column type it creates depends on the database'
+		Illuminate\Database\Schema\Blueprint::multiPolygonZ: 'call `geometry()` or `geography()` with the subtype, such as `geography($column, ''multipolygonz'')`; the column type it creates depends on the database'
+		Illuminate\Database\Schema\Builder::getAllTables: 'call `getTables()`, which returns arrays with the name and schema of each table, not rows of the database'
+		Illuminate\Database\Schema\Builder::getAllViews: 'call `getViews()`, which returns arrays with the name, schema and definition of each view, not rows of the database'
+		Illuminate\Database\Schema\PostgresBuilder::getAllTypes: 'call `getTypes()`, which returns arrays with the name and schema of each type, not rows of the database'
+		Illuminate\Database\Schema\Builder::useNativeSchemaOperationsIfPossible: 'there is no replacement; the schema is always changed natively; drop the call'
+		Illuminate\Database\Schema\Builder::$alwaysUsesNativeSchemaOperationsIfPossible: 'there is no replacement; the schema is always changed natively'
+		Illuminate\Database\Connection::usingNativeSchemaOperations: 'there is no replacement; the schema is always changed natively; drop the call'
+		Illuminate\Database\Connection::isDoctrineAvailable: 'there is no replacement; Laravel no longer uses Doctrine DBAL'
+		Illuminate\Database\Connection::getDoctrineConnection: 'read the schema by the schema builder, such as `Schema::getTables()`, `getColumns()` or `getIndexes()`'
+		Illuminate\Database\Connection::getDoctrineSchemaManager: 'read the schema by the schema builder, such as `Schema::getTables()`, `getColumns()` or `getIndexes()`'
+		Illuminate\Database\Connection::getDoctrineColumn: 'call `getColumns()` of the schema builder, which describes every column of the table'
+		Illuminate\Database\Connection::registerDoctrineType: 'there is no replacement; a column type needs no type of Doctrine DBAL; drop the call'
+		Illuminate\Database\DatabaseManager::registerDoctrineType: 'there is no replacement; a column type needs no type of Doctrine DBAL; drop the call'
+		Illuminate\Support\Facades\Schema::getAllTables: 'call `getTables()`, which returns arrays with the name and schema of each table, not rows of the database'
+		Illuminate\Support\Facades\Schema::getAllViews: 'call `getViews()`, which returns arrays with the name, schema and definition of each view, not rows of the database'
+		Illuminate\Support\Facades\Schema::getAllTypes: 'call `getTypes()`, which returns arrays with the name and schema of each type, not rows of the database'
+		Illuminate\Support\Facades\Schema::useNativeSchemaOperationsIfPossible: 'there is no replacement; the schema is always changed natively; drop the call'
+		Illuminate\Support\Facades\DB::usingNativeSchemaOperations: 'there is no replacement; the schema is always changed natively; drop the call'
+		Illuminate\Support\Facades\DB::isDoctrineAvailable: 'there is no replacement; Laravel no longer uses Doctrine DBAL'
+		Illuminate\Support\Facades\DB::getDoctrineConnection: 'read the schema by the schema builder, such as `Schema::getTables()`, `getColumns()` or `getIndexes()`'
+		Illuminate\Support\Facades\DB::getDoctrineSchemaManager: 'read the schema by the schema builder, such as `Schema::getTables()`, `getColumns()` or `getIndexes()`'
+		Illuminate\Support\Facades\DB::getDoctrineColumn: 'call `getColumns()` of the schema builder, which describes every column of the table'
+		Illuminate\Support\Facades\DB::registerDoctrineType: 'there is no replacement; a column type needs no type of Doctrine DBAL; drop the call'
+		Illuminate\Database\Schema\Grammars\Grammar::getDoctrineTableDiff: 'there is no replacement; Laravel no longer uses Doctrine DBAL'
+
+	forbiddenClasses:
+		Illuminate\Database\DBAL\TimestampType: 'there is no replacement; Laravel no longer uses Doctrine DBAL'
+		Illuminate\Database\PDO\Concerns\ConnectsToDatabase: 'there is no replacement; Laravel no longer uses Doctrine DBAL'
+		Illuminate\Database\PDO\Connection: 'there is no replacement; Laravel no longer uses Doctrine DBAL'
+		Illuminate\Database\PDO\MySqlDriver: 'there is no replacement; Laravel no longer uses Doctrine DBAL'
+		Illuminate\Database\PDO\PostgresDriver: 'there is no replacement; Laravel no longer uses Doctrine DBAL'
+		Illuminate\Database\PDO\SQLiteDriver: 'there is no replacement; Laravel no longer uses Doctrine DBAL'
+		Illuminate\Database\PDO\SqlServerConnection: 'there is no replacement; Laravel no longer uses Doctrine DBAL'
+		Illuminate\Database\PDO\SqlServerDriver: 'there is no replacement; Laravel no longer uses Doctrine DBAL'
+		Illuminate\Database\Schema\Grammars\ChangeColumn: 'there is no replacement; Laravel no longer uses Doctrine DBAL'
+		Illuminate\Database\Schema\Grammars\RenameColumn: 'there is no replacement; Laravel no longer uses Doctrine DBAL'
