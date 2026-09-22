@@ -16,8 +16,11 @@
 		"dresscode/dresscode": "dev-master"
 	},
 	"require-dev": {
+		"larastan/larastan": "^3.0",
+		"laravel/framework": "^13.0",
 		"nette/phpstan-rules": "^1.0",
 		"nette/tester": "^2.6",
+		"orchestra/testbench": "^11.0",
 		"phpstan/extension-installer": "^1.4",
 		"phpstan/phpstan": "^2.2"
 	},
@@ -37,7 +40,9 @@
 			"dev-master": "1.0-dev"
 		},
 		"dresscode": {
-			"upgrading": []
+			"upgrading": [
+				"upgrading/framework.neon"
+			]
 		}
 	}
 }

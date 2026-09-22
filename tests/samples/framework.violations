@@ -1,0 +1,46 @@
+9: Class `Illuminate\Database\Eloquent\Concerns\HasVersion7Uuids` is replaced by `Illuminate\Database\Eloquent\Concerns\HasUuids`
+16: Class `Illuminate\Foundation\Http\Middleware\ValidateCsrfToken` is replaced by `Illuminate\Foundation\Http\Middleware\PreventRequestForgery`
+17: Class `Illuminate\Foundation\Http\Middleware\VerifyCsrfToken` is replaced by `Illuminate\Foundation\Http\Middleware\PreventRequestForgery`
+33: Class `Illuminate\Foundation\Http\Middleware\VerifyCsrfToken` is replaced by `Illuminate\Foundation\Http\Middleware\PreventRequestForgery`
+42: Method `Illuminate\Http\Request::get()` is replaced by `Request::input()`
+51: Method `Illuminate\Foundation\Configuration\Middleware::validateCsrfTokens()` is replaced by `Middleware::preventRequestForgery()`
+52: Method `Illuminate\Foundation\Configuration\Middleware::validateCsrfTokens()` is replaced by `Middleware::preventRequestForgery()`
+53: Class `Illuminate\Foundation\Http\Middleware\ValidateCsrfToken` is replaced by `Illuminate\Foundation\Http\Middleware\PreventRequestForgery`
+59: Class `Illuminate\Foundation\Http\Middleware\VerifyCsrfToken` is replaced by `Illuminate\Foundation\Http\Middleware\PreventRequestForgery`
+60: Class `Illuminate\Foundation\Http\Middleware\ValidateCsrfToken` is replaced by `Illuminate\Foundation\Http\Middleware\PreventRequestForgery`
+69: Property `Illuminate\Queue\Events\QueueBusy::$connection` is replaced by `QueueBusy::$connectionName`
+78: Property `Illuminate\Queue\Events\JobAttempted::$exceptionOccurred` is replaced by `$this->exception !== null`
+82: Property `Illuminate\Queue\Events\JobAttempted::$exceptionOccurred` is replaced by `$this->exception !== null`
+93: Method `Illuminate\Http\Request::get()` is replaced by `Request::input()`
+94: Method `Illuminate\Http\Request::get()` is replaced by `Request::input()`
+96: Static method `Illuminate\Support\Facades\Request::get()` is replaced by `Request::input()`
+105: Static method `Illuminate\Support\Facades\Schema::useNativeSchemaOperationsIfPossible()` is forbidden: there is no replacement, the schema is always changed natively; drop the call
+106: Static method `Illuminate\Support\Facades\DB::registerDoctrineType()` is forbidden: there is no replacement, a column type needs no type of Doctrine DBAL; drop the call
+107: Method `Illuminate\Database\Connection::registerDoctrineType()` is forbidden: there is no replacement, a column type needs no type of Doctrine DBAL; drop the call
+108: Static method `Illuminate\Support\Facades\URL::forceRootUrl()` is replaced by `URL::useOrigin()`
+113: Property `Illuminate\Cache\RateLimiting\Limit::$decayMinutes` is replaced by `$this->decaySeconds = $value * 60`
+114: Property `Illuminate\Cache\RateLimiting\Limit::$decayMinutes` is replaced by `$this->decaySeconds / 60`, but it stands in a string, whose interpolation takes a variable and what is read or called on it alone
+115: Property `Illuminate\Cache\RateLimiting\Limit::$decayMinutes` is replaced by `$this->decaySeconds / 60`
+126: Method `Illuminate\Auth\AuthenticationException::redirectTo()` is replaced by `redirectTo(\request())`
+136: Method `Illuminate\Database\Schema\Blueprint::double()` is replaced by `double($column)`
+138: Method `Illuminate\Database\Schema\Blueprint::float()` is forbidden: pass `precision` instead of `total` and `places`, such as `float($column, precision: 53)`
+140: Method `Illuminate\Database\Schema\Blueprint::unsignedDecimal()` is replaced by `decimal(...$args)->unsigned()`
+141: Method `Illuminate\Database\Schema\Blueprint::unsignedDecimal()` is replaced by `decimal(...$args)->unsigned()`
+142: Method `Illuminate\Database\Schema\Blueprint::unsignedDouble()` is replaced by `double($column)->unsigned()`
+143: Method `Illuminate\Database\Schema\Blueprint::unsignedFloat()` is forbidden: call `float()` with a precision and `unsigned()`, such as `float($column, precision: 24)->unsigned()`
+144: Method `Illuminate\Database\Schema\Blueprint::point()` is forbidden: call `geometry()` or `geography()` with the subtype, such as `geography($column, 'point')`, whose type differs by the database
+145: Method `Illuminate\Database\Schema\Blueprint::multiPolygon()` is forbidden: call `geometry()` or `geography()` with the subtype, such as `geography($column, 'multipolygon')`, whose type differs by the database
+156: Static method `Illuminate\Support\Facades\Schema::getAllTables()` is forbidden: call `getTables()`, which returns arrays with the name and schema of each table, not rows of the database
+160: Method `Illuminate\Database\Connection::getDoctrineSchemaManager()` is forbidden: read the schema by the schema builder, such as `Schema::getTables()`, `getColumns()` or `getIndexes()`
+161: Method `Illuminate\Database\Connection::getDoctrineColumn()` is forbidden: call `getColumns()` of the schema builder, which describes every column of the table
+162: Method `Illuminate\Database\Schema\Builder::getAllViews()` is forbidden: call `getViews()`, which returns arrays with the name, schema and definition of each view, not rows of the database
+168: Constructor `Illuminate\Database\Grammar::__construct()` is forbidden: pass the connection to the constructor, such as `new MySqlGrammar($connection)`
+169: Method `Illuminate\Database\Grammar::setConnection()` is forbidden: pass the connection to the constructor of the grammar; drop the call
+170: Static method `Illuminate\Database\Query\Grammars\PostgresGrammar::cascadeOnTrucate()` is replaced by `PostgresGrammar::cascadeOnTruncate()`
+171: Constructor `Illuminate\Database\Schema\Blueprint::__construct()` is forbidden: pass the connection first, such as `new Blueprint($connection, $table)`, which gives the table prefix too
+172: Method `Illuminate\Database\Connection::withTablePrefix()` is forbidden: there is no replacement, a grammar reads the table prefix of its connection; use the grammar itself
+179: Class `Illuminate\Database\Eloquent\Concerns\HasVersion7Uuids` is replaced by `Illuminate\Database\Eloquent\Concerns\HasUuids`
+193: Method `Illuminate\Console\GeneratorCommand::possibleModels()` is replaced by `GeneratorCommand::findAvailableModels()`
+202: Method `Illuminate\Support\Enumerable::containsOneItem()` is replaced by `Enumerable::hasSole()`
+202: Method `Illuminate\Support\Enumerable::containsManyItems()` is replaced by `Enumerable::hasMany()`
+202: Method `Illuminate\Support\Enumerable::containsOneItem()` is replaced by `Enumerable::hasSole()`
