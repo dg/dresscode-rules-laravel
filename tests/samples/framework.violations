@@ -1,0 +1,46 @@
+9: Class `Illuminate\Database\Eloquent\Concerns\HasVersion7Uuids` is replaced by `Illuminate\Database\Eloquent\Concerns\HasUuids`.
+16: Class `Illuminate\Foundation\Http\Middleware\ValidateCsrfToken` is replaced by `Illuminate\Foundation\Http\Middleware\PreventRequestForgery`.
+17: Class `Illuminate\Foundation\Http\Middleware\VerifyCsrfToken` is replaced by `Illuminate\Foundation\Http\Middleware\PreventRequestForgery`.
+33: Class `Illuminate\Foundation\Http\Middleware\VerifyCsrfToken` is replaced by `Illuminate\Foundation\Http\Middleware\PreventRequestForgery`.
+42: Method `Illuminate\Http\Request::get()` is replaced by `Request::input()`.
+51: Method `Illuminate\Foundation\Configuration\Middleware::validateCsrfTokens()` is replaced by `Middleware::preventRequestForgery()`.
+52: Method `Illuminate\Foundation\Configuration\Middleware::validateCsrfTokens()` is replaced by `Middleware::preventRequestForgery()`.
+53: Class `Illuminate\Foundation\Http\Middleware\ValidateCsrfToken` is replaced by `Illuminate\Foundation\Http\Middleware\PreventRequestForgery`.
+59: Class `Illuminate\Foundation\Http\Middleware\VerifyCsrfToken` is replaced by `Illuminate\Foundation\Http\Middleware\PreventRequestForgery`.
+60: Class `Illuminate\Foundation\Http\Middleware\ValidateCsrfToken` is replaced by `Illuminate\Foundation\Http\Middleware\PreventRequestForgery`.
+69: Property `Illuminate\Queue\Events\QueueBusy::$connection` is replaced by `QueueBusy::$connectionName`.
+78: Property `Illuminate\Queue\Events\JobAttempted::$exceptionOccurred` is replaced by `$this->exception !== null`.
+82: Property `Illuminate\Queue\Events\JobAttempted::$exceptionOccurred` is replaced by `$this->exception !== null`.
+93: Method `Illuminate\Http\Request::get()` is replaced by `Request::input()`.
+94: Method `Illuminate\Http\Request::get()` is replaced by `Request::input()`.
+96: Static method `Illuminate\Support\Facades\Request::get()` is replaced by `Request::input()`.
+105: Static method `Illuminate\Support\Facades\Schema::useNativeSchemaOperationsIfPossible()` is removed: there is no replacement; the schema is always changed natively; drop the call, since laravel/framework 11.
+106: Static method `Illuminate\Support\Facades\DB::registerDoctrineType()` is removed: there is no replacement; a column type needs no type of Doctrine DBAL; drop the call, since laravel/framework 11.
+107: Method `Illuminate\Database\Connection::registerDoctrineType()` is removed: there is no replacement; a column type needs no type of Doctrine DBAL; drop the call, since laravel/framework 11.
+108: Static method `Illuminate\Support\Facades\URL::forceRootUrl()` is replaced by `URL::useOrigin()`.
+113: Property `Illuminate\Cache\RateLimiting\Limit::$decayMinutes` is replaced by `$this->decaySeconds = $value * 60`.
+114: Property `Illuminate\Cache\RateLimiting\Limit::$decayMinutes` is replaced by `$this->decaySeconds / 60`, but expression `$limit->decaySeconds / 60` cannot be written inside a string, which takes a variable, an element, a property or a call reached from a variable.
+115: Property `Illuminate\Cache\RateLimiting\Limit::$decayMinutes` is replaced by `$this->decaySeconds / 60`.
+126: Method `Illuminate\Auth\AuthenticationException::redirectTo()` is replaced by `redirectTo(\request())`.
+136: Method `Illuminate\Database\Schema\Blueprint::double()` is replaced by `double($column)`.
+138: Method `Illuminate\Database\Schema\Blueprint::float()` is deprecated: pass `precision` instead of `total` and `places`, such as `float($column, precision: 53)`, since laravel/framework 11.
+140: Method `Illuminate\Database\Schema\Blueprint::unsignedDecimal()` is replaced by `decimal(...$args)->unsigned()`.
+141: Method `Illuminate\Database\Schema\Blueprint::unsignedDecimal()` is replaced by `decimal(...$args)->unsigned()`.
+142: Method `Illuminate\Database\Schema\Blueprint::unsignedDouble()` is replaced by `double($column)->unsigned()`.
+143: Method `Illuminate\Database\Schema\Blueprint::unsignedFloat()` is removed: call `float()` with a precision and `unsigned()`, such as `float($column, precision: 24)->unsigned()`, since laravel/framework 11.
+144: Method `Illuminate\Database\Schema\Blueprint::point()` is removed: call `geometry()` or `geography()` with the subtype, such as `geography($column, 'point')`; the column type it creates depends on the database, since laravel/framework 11.
+145: Method `Illuminate\Database\Schema\Blueprint::multiPolygon()` is removed: call `geometry()` or `geography()` with the subtype, such as `geography($column, 'multipolygon')`; the column type it creates depends on the database, since laravel/framework 11.
+156: Static method `Illuminate\Support\Facades\Schema::getAllTables()` is removed: call `getTables()`, which returns arrays with the name and schema of each table, not rows of the database, since laravel/framework 11.
+160: Method `Illuminate\Database\Connection::getDoctrineSchemaManager()` is removed: read the schema by the schema builder, such as `Schema::getTables()`, `getColumns()` or `getIndexes()`, since laravel/framework 11.
+161: Method `Illuminate\Database\Connection::getDoctrineColumn()` is removed: call `getColumns()` of the schema builder, which describes every column of the table, since laravel/framework 11.
+162: Method `Illuminate\Database\Schema\Builder::getAllViews()` is removed: call `getViews()`, which returns arrays with the name, schema and definition of each view, not rows of the database, since laravel/framework 11.
+168: Constructor `Illuminate\Database\Grammar::__construct()` is deprecated: pass the connection to the constructor, such as `new MySqlGrammar($connection)`, since laravel/framework 12.
+169: Method `Illuminate\Database\Grammar::setConnection()` is removed: pass the connection to the constructor of the grammar; drop the call, since laravel/framework 12.
+170: Static method `Illuminate\Database\Query\Grammars\PostgresGrammar::cascadeOnTrucate()` is replaced by `PostgresGrammar::cascadeOnTruncate()`.
+171: Constructor `Illuminate\Database\Schema\Blueprint::__construct()` is deprecated: pass the connection first, such as `new Blueprint($connection, $table)`, which gives the table prefix too, since laravel/framework 12.
+172: Method `Illuminate\Database\Connection::withTablePrefix()` is removed: there is no replacement; a grammar reads the table prefix of the connection it was created with; use the grammar passed to the call as it is, since laravel/framework 12.
+179: Class `Illuminate\Database\Eloquent\Concerns\HasVersion7Uuids` is replaced by `Illuminate\Database\Eloquent\Concerns\HasUuids`.
+193: Method `Illuminate\Console\GeneratorCommand::possibleModels()` is replaced by `GeneratorCommand::findAvailableModels()`.
+202: Method `Illuminate\Support\Enumerable::containsOneItem()` is replaced by `Enumerable::hasSole()`.
+202: Method `Illuminate\Support\Enumerable::containsManyItems()` is replaced by `Enumerable::hasMany()`.
+202: Method `Illuminate\Support\Enumerable::containsOneItem()` is replaced by `Enumerable::hasSole()`.

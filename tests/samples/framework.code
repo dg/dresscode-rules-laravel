@@ -1,0 +1,204 @@
+<?php
+
+namespace App;
+
+use Illuminate\Auth\AuthenticationException;
+use Illuminate\Cache\RateLimiting\Limit;
+use Illuminate\Console\GeneratorCommand;
+use Illuminate\Database\Connection;
+use Illuminate\Database\Eloquent\Concerns\HasVersion7Uuids;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Query\Grammars\MySqlGrammar;
+use Illuminate\Database\Query\Grammars\PostgresGrammar;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Foundation\Configuration\Middleware;
+use Illuminate\Foundation\Http\Middleware\ValidateCsrfToken;
+use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken as BaseVerifier;
+use Illuminate\Http\Request;
+use Illuminate\Queue\Events\JobAttempted;
+use Illuminate\Queue\Events\QueueBusy;
+use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\RateLimiter;
+use Illuminate\Support\Facades\Request as RequestFacade;
+use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\URL;
+use Illuminate\Support\LazyCollection;
+use Illuminate\Support\ServiceProvider;
+
+
+class VerifyCsrfToken extends BaseVerifier
+{
+	protected $except = [
+		'stripe/*',
+	];
+
+
+	protected function tokensMatch($request)
+	{
+		return parent::tokensMatch($request) || $request->get('_token') === 'test';
+	}
+}
+
+
+class Bootstrap
+{
+	public function withMiddleware(Middleware $middleware): void
+	{
+		$middleware->validateCsrfTokens(except: ['stripe/*']);
+		$middleware->validateCsrfTokens(['webhook/*']);
+		ValidateCsrfToken::except(['callback/*']);
+	}
+
+
+	public function routes(): void
+	{
+		Route::post('/webhook', fn() => 'ok')->withoutMiddleware([\Illuminate\Foundation\Http\Middleware\VerifyCsrfToken::class]);
+		Route::post('/callback', fn() => 'ok')->withoutMiddleware(ValidateCsrfToken::class);
+	}
+}
+
+
+class NotifyQueueBusy
+{
+	public function handle(QueueBusy $event): void
+	{
+		Log::warning("Queue {$event->queue} on {$event->connection} holds {$event->size} jobs");
+	}
+}
+
+
+class RecordJobAttempt
+{
+	public function handle(JobAttempted $event): void
+	{
+		if ($event->exceptionOccurred) {
+			Log::error("Job {$event->job->getJobId()} failed");
+		}
+
+		if (!$event->exceptionOccurred && $event->successful()) {
+			Log::info('ok');
+		}
+	}
+}
+
+
+class ProfileController
+{
+	public function show(Request $request): string
+	{
+		$name = $request->get('name');
+		$page = $request->get('page', 1);
+		$user = $request->user()?->name;
+		return $name . $page . $user . RequestFacade::get('locale', 'en');
+	}
+}
+
+
+class AppServiceProvider extends ServiceProvider
+{
+	public function boot(): void
+	{
+		Schema::useNativeSchemaOperationsIfPossible();
+		DB::registerDoctrineType('App\Types\Money', 'money', 'decimal');
+		DB::connection()->registerDoctrineType('App\Types\Money', 'money', 'decimal');
+		URL::forceRootUrl(config('app.url'));
+		$this->app['url']->forceRootUrl('https://example.com');
+
+		RateLimiter::for('api', function (Request $request) {
+			$limit = Limit::perMinute(60);
+			$limit->decayMinutes = 2;
+			Log::info("api limit decays in {$limit->decayMinutes} minutes");
+			Log::info('api limit decays in ' . $limit->decayMinutes . ' minutes');
+			return $limit;
+		});
+	}
+}
+
+
+class Handler
+{
+	public function redirect(AuthenticationException $e): ?string
+	{
+		return $e->redirectTo();
+	}
+}
+
+
+class CreateOrdersTable extends Migration
+{
+	public function up(): void
+	{
+		Schema::create('orders', function (Blueprint $table) {
+			$table->double('total', 8, 2);
+			$table->double('tax');
+			$table->float('weight', 8, 2);
+			$table->float('volume', 53);
+			$table->unsignedDecimal('price', 10, 2);
+			$table->unsignedDecimal('discount');
+			$table->unsignedDouble('rate', 8, 2);
+			$table->unsignedFloat('ratio');
+			$table->point('location');
+			$table->multiPolygon('area');
+		});
+	}
+}
+
+
+class DatabaseReport
+{
+	public function tables(Connection $connection): array
+	{
+		$names = [];
+		foreach (Schema::getAllTables() as $table) {
+			$names[] = $table->name;
+		}
+
+		$schema = $connection->getDoctrineSchemaManager();
+		$column = $connection->getDoctrineColumn('orders', 'total');
+		return [$names, $schema, $column, $connection->getSchemaBuilder()->getAllViews()];
+	}
+
+
+	public function grammar(Connection $connection): MySqlGrammar
+	{
+		$grammar = new MySqlGrammar;
+		$grammar->setConnection($connection);
+		PostgresGrammar::cascadeOnTrucate();
+		$blueprint = new Blueprint('orders', null, 'app_');
+		return $connection->withTablePrefix($grammar);
+	}
+}
+
+
+class Order extends Model
+{
+	use HasVersion7Uuids;
+}
+
+
+class ModelMakeCommand extends GeneratorCommand
+{
+	protected function getStub(): string
+	{
+		return __DIR__ . '/stub';
+	}
+
+
+	protected function suggestions(): array
+	{
+		return $this->possibleModels();
+	}
+}
+
+
+class OrderStats
+{
+	public function describe(Collection $orders, LazyCollection $lines): bool
+	{
+		return $orders->containsOneItem() || $orders->containsManyItems(fn($order) => $order->paid) || $lines->containsOneItem();
+	}
+}
