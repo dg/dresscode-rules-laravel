@@ -8,6 +8,19 @@ const SampleDecisions = [
 ];
 
 
+/** The decisions the corpus is run with: the maps the upgrading files feed. */
+const UpgradingDecisions = [
+	'upgrading.api.replacedClasses',
+	'upgrading.api.replacedMembers',
+	'upgrading.api.replacedCalls',
+	'upgrading.api.replacedFunctions',
+	'upgrading.api.forbiddenClasses',
+	'upgrading.api.forbiddenMembers',
+	'upgrading.api.forbiddenFunctions',
+	'upgrading.api.attributeForMember',
+];
+
+
 /**
  * What the upgrading file of a library has wrong, checked against the installed library.
  * @return list<string>
