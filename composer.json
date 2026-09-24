@@ -41,7 +41,8 @@
 		},
 		"dresscode": {
 			"upgrading": [
-				"upgrading/framework.neon"
+				"upgrading/framework.neon",
+				"upgrading/framework-attributes.neon"
 			]
 		}
 	}
