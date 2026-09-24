@@ -105,3 +105,184 @@ since 11:
 		Illuminate\Database\PDO\SqlServerDriver: 'there is no replacement; Laravel no longer uses Doctrine DBAL'
 		Illuminate\Database\Schema\Grammars\ChangeColumn: 'there is no replacement; Laravel no longer uses Doctrine DBAL'
 		Illuminate\Database\Schema\Grammars\RenameColumn: 'there is no replacement; Laravel no longer uses Doctrine DBAL'
+
+since 10:
+	replacedMembers:
+		Illuminate\Foundation\Http\Kernel::getRouteMiddleware: getMiddlewareAliases
+
+since 9.16:
+	replacedCalls:
+		'Illuminate\Routing\Redirector::home()': 'route(''home'')'
+		'Illuminate\Routing\Redirector::home($status)': 'route(''home'', [], $status)'
+		'Illuminate\Support\Facades\Redirect::home()': 'route(''home'')'
+		'Illuminate\Support\Facades\Redirect::home($status)': 'route(''home'', [], $status)'
+
+since 9:
+	replacedMembers:
+		Illuminate\Support\Enumerable::reduceWithKeys: reduce
+		Illuminate\Database\Eloquent\Relations\Relation::getBaseQuery: toBase
+
+	replacedCalls:
+		'Illuminate\Foundation\Testing\Concerns\InteractsWithDatabase::assertDeleted(Illuminate\Database\Eloquent\Model $model)': 'assertModelMissing($model)'
+		'Illuminate\Foundation\Testing\Concerns\InteractsWithDatabase::assertDeleted(string $table, ...$rest)': 'assertDatabaseMissing($table, ...$rest)'
+
+	forbiddenMembers:
+		Illuminate\Mail\Message::getSwiftMessage: 'call `getSymfonyMessage()`, which returns a Symfony Email instead of a Swift message'
+		Illuminate\Mail\Mailable::withSwiftMessage: 'call `withSymfonyMessage()`, whose callback gets a Symfony Email instead of a Swift message'
+		Illuminate\Notifications\Messages\MailMessage::withSwiftMessage: 'call `withSymfonyMessage()`, whose callback gets a Symfony Email instead of a Swift message'
+		Illuminate\Mail\Mailer::getSwiftMailer: 'call `getSymfonyTransport()`, which returns the transport of Symfony Mailer instead of a Swift mailer'
+		Illuminate\Mail\Mailer::setSwiftMailer: 'call `setSymfonyTransport()` with a transport of Symfony Mailer'
+		Illuminate\Mail\MailManager::createTransport: 'override `createSymfonyTransport()`, which creates a transport of Symfony Mailer'
+		Illuminate\Contracts\Mail\Mailer::failures: 'there is no replacement; sending to a failed recipient throws `TransportExceptionInterface` of Symfony Mailer; catch it'
+		Illuminate\Support\Facades\Mail::failures: 'there is no replacement; sending to a failed recipient throws `TransportExceptionInterface` of Symfony Mailer; catch it'
+		Illuminate\Database\Schema\Builder::registerCustomDoctrineType: 'there is no replacement; Laravel no longer uses Doctrine DBAL'
+
+	forbiddenClasses:
+		Illuminate\Mail\Transport\Transport: 'extend `Symfony\Component\Mailer\Transport\AbstractTransport`, the base of a transport of Symfony Mailer'
+
+since 8.75:
+	replacedCalls:
+		'Illuminate\Support\Testing\Fakes\NotificationFake::assertTimesSent($count, $notification)': 'assertSentTimes($notification, $count)'
+		'Illuminate\Support\Facades\Notification::assertTimesSent($count, $notification)': 'assertSentTimes($notification, $count)'
+
+since 8.65:
+	replacedMembers:
+		Illuminate\Support\Enumerable::reduceMany: reduceSpread
+
+since 8.39:
+	replacedMembers:
+		Illuminate\Foundation\Bus\DispatchesJobs::dispatchNow: dispatchSync
+
+since 8.36:
+	replacedMembers:
+		Illuminate\Foundation\Bus\Dispatchable::dispatchNow: dispatchSync
+
+	replacedFunctions:
+		dispatch_now: dispatch_sync
+
+since 8.35:
+	forbiddenClasses:
+		Illuminate\Foundation\Testing\Concerns\MocksApplicationServices: 'use the fakes, such as `Event::fake()`, `Bus::fake()` and `Notification::fake()`, with their assertions'
+
+since 8:
+	replacedCalls:
+		'Illuminate\Testing\TestResponse::decodeResponseJson($key)': 'json($key)'
+
+	forbiddenMembers:
+		Illuminate\Contracts\Queue\ShouldQueue::retryAfter: 'implement `backoff()`, which the queue reads in its place'
+		Illuminate\Contracts\Queue\ShouldQueue::$retryAfter: 'declare the property `$backoff`, which the queue reads in its place'
+		Illuminate\Contracts\Queue\ShouldQueue::$timeoutAt: 'declare the property `$retryUntil`, which the queue reads in its place'
+
+	forbiddenClasses:
+		Illuminate\Database\Eloquent\Factory: 'define the factory as a class extending `Illuminate\Database\Eloquent\Factories\Factory`, or require `laravel/legacy-factories`'
+		Illuminate\Database\Eloquent\FactoryBuilder: 'define the factory as a class extending `Illuminate\Database\Eloquent\Factories\Factory`, or require `laravel/legacy-factories`'
+
+	forbiddenFunctions:
+		factory: 'use the static `factory()` of the model, such as `User::factory()`, with a class factory'
+
+since 7.8:
+	replacedMembers:
+		Illuminate\Support\Enumerable::until: takeUntil
+
+since 7:
+	replacedClasses:
+		Illuminate\Http\Resources\Json\Resource: Illuminate\Http\Resources\Json\JsonResource
+		Illuminate\Foundation\Testing\TestResponse: Illuminate\Testing\TestResponse
+		Illuminate\Foundation\Testing\Assert: Illuminate\Testing\Assert
+		Illuminate\Foundation\Testing\PendingCommand: Illuminate\Testing\PendingCommand
+		Illuminate\Foundation\Testing\Constraints\ArraySubset: Illuminate\Testing\Constraints\ArraySubset
+		Illuminate\Foundation\Testing\Constraints\HasInDatabase: Illuminate\Testing\Constraints\HasInDatabase
+		Illuminate\Foundation\Testing\Constraints\SeeInOrder: Illuminate\Testing\Constraints\SeeInOrder
+		Illuminate\Foundation\Testing\Constraints\SoftDeletedInDatabase: Illuminate\Testing\Constraints\SoftDeletedInDatabase
+
+	replacedCalls:
+		'Illuminate\Database\Eloquent\Concerns\HidesAttributes::addHidden($attributes)': 'makeHidden($attributes)'
+		'Illuminate\Database\Eloquent\Concerns\HidesAttributes::addVisible($attributes)': 'makeVisible($attributes)'
+
+	forbiddenClasses:
+		Illuminate\Mail\TransportManager: 'use `Illuminate\Mail\MailManager`, which creates the transports of the mailers'
+
+since 6.19:
+	forbiddenFunctions:
+		elixir: 'use `vite()` for an asset built by Vite'
+
+since 6.10:
+	replacedMembers:
+		Illuminate\Mail\PendingMail::sendNow: send
+
+since 6:
+	replacedFunctions:
+		array_add: Illuminate\Support\Arr::add
+		array_collapse: Illuminate\Support\Arr::collapse
+		array_divide: Illuminate\Support\Arr::divide
+		array_dot: Illuminate\Support\Arr::dot
+		array_except: Illuminate\Support\Arr::except
+		array_flatten: Illuminate\Support\Arr::flatten
+		array_forget: Illuminate\Support\Arr::forget
+		array_get: Illuminate\Support\Arr::get
+		array_has: Illuminate\Support\Arr::has
+		array_only: Illuminate\Support\Arr::only
+		array_pluck: Illuminate\Support\Arr::pluck
+		array_prepend: Illuminate\Support\Arr::prepend
+		array_pull: Illuminate\Support\Arr::pull
+		array_random: Illuminate\Support\Arr::random
+		array_set: Illuminate\Support\Arr::set
+		array_sort: Illuminate\Support\Arr::sort
+		array_sort_recursive: Illuminate\Support\Arr::sortRecursive
+		array_where: Illuminate\Support\Arr::where
+		array_wrap: Illuminate\Support\Arr::wrap
+		camel_case: Illuminate\Support\Str::camel
+		ends_with: Illuminate\Support\Str::endsWith
+		kebab_case: Illuminate\Support\Str::kebab
+		snake_case: Illuminate\Support\Str::snake
+		starts_with: Illuminate\Support\Str::startsWith
+		str_after: Illuminate\Support\Str::after
+		str_before: Illuminate\Support\Str::before
+		str_finish: Illuminate\Support\Str::finish
+		str_is: Illuminate\Support\Str::is
+		str_limit: Illuminate\Support\Str::limit
+		str_plural: Illuminate\Support\Str::plural
+		str_random: Illuminate\Support\Str::random
+		str_replace_array: Illuminate\Support\Str::replaceArray
+		str_replace_first: Illuminate\Support\Str::replaceFirst
+		str_replace_last: Illuminate\Support\Str::replaceLast
+		str_singular: Illuminate\Support\Str::singular
+		str_slug: Illuminate\Support\Str::slug
+		str_start: Illuminate\Support\Str::start
+		studly_case: Illuminate\Support\Str::studly
+		title_case: Illuminate\Support\Str::title
+
+	replacedClasses:
+		Illuminate\Support\Facades\Input: Illuminate\Support\Facades\Request
+
+	replacedMembers:
+		Illuminate\Support\Facades\Input::get: Illuminate\Support\Facades\Request::input
+		Illuminate\Contracts\Translation\Translator::trans: get
+		Illuminate\Contracts\Translation\Translator::transChoice: choice
+		Illuminate\Translation\Translator::getFromJson: get
+		Illuminate\Support\Facades\Lang::trans: get
+		Illuminate\Support\Facades\Lang::transChoice: choice
+		Illuminate\Support\Facades\Lang::getFromJson: get
+		Illuminate\Database\Eloquent\Relations\BelongsTo::getRelation: getRelationName
+		Illuminate\Foundation\Testing\Concerns\MakesHttpRequests::option: options
+		Illuminate\Foundation\Testing\Concerns\MakesHttpRequests::optionJson: optionsJson
+		Illuminate\Routing\UrlGenerator::$cachedSchema: $cachedScheme
+		Illuminate\Support\Manager::$app: $container
+
+	replacedCalls:
+		'Illuminate\Auth\Access\Response::__construct()': 'new \Illuminate\Auth\Access\Response(true)'
+		'Illuminate\Auth\Access\Response::__construct(string $message)': 'new \Illuminate\Auth\Access\Response(true, $message)'
+
+	forbiddenMembers:
+		Illuminate\Contracts\Auth\PasswordBroker::validator: 'there is no replacement; the broker no longer validates the password; validate it before the reset'
+		Illuminate\Contracts\Auth\PasswordBroker::validateNewPassword: 'there is no replacement; the broker no longer validates the password; validate it before the reset'
+		Illuminate\Contracts\Auth\PasswordBroker::INVALID_PASSWORD: 'there is no replacement; the broker no longer validates the password; validate it before the reset'
+		Illuminate\Support\Facades\Password::INVALID_PASSWORD: 'there is no replacement; the broker no longer validates the password; validate it before the reset'
+		Illuminate\Filesystem\FilesystemManager::createRackspaceDriver: 'there is no replacement; the framework has no driver of Rackspace; register one of a package'
+		Illuminate\Filesystem\FilesystemAdapter::getRackspaceTemporaryUrl: 'there is no replacement; the framework has no driver of Rackspace; register one of a package'
+
+	forbiddenClasses:
+		Illuminate\Console\DetectsApplicationNamespace: 'call `getNamespace()` of the application instead of `getAppNamespace()`'
+		Illuminate\Database\DetectsDeadlocks: 'use `Illuminate\Database\DetectsConcurrencyErrors` and call its `causedByConcurrencyError()`'
+		Illuminate\Mail\Transport\MandrillTransport: 'there is no replacement; the framework has no driver of Mandrill; register one of a package'
+		Illuminate\Mail\Transport\SparkPostTransport: 'there is no replacement; the framework has no driver of SparkPost; register one of a package'

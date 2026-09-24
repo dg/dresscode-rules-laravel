@@ -184,6 +184,7 @@ function hashFiles(string $dir): array
 function isLegacy(string $file): bool
 {
 	$legacy = [
+		'Foundation/Http/KernelTest.php', // getRouteMiddleware(), deprecated since 10
 		'Foundation/Http/Middleware/ConvertEmptyStringsToNullTest.php', // get() of the request, deprecated since 12.51
 		'Foundation/Http/Middleware/TransformsRequestTest.php', // the same
 		'Foundation/Http/Middleware/TrimStringsTest.php', // the same
