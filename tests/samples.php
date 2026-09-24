@@ -20,6 +20,11 @@ const UpgradingDecisions = [
 	'upgrading.api.attributeForMember',
 ];
 
+/** The decisions of UpgradingDecisions that offer a newer shape of code that is right as it is. */
+const ModernizationDecisions = [
+	'upgrading.api.attributeForMember',
+];
+
 
 /**
  * What the upgrading file of a library has wrong, checked against the installed library.

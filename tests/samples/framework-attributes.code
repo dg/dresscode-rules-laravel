@@ -1,0 +1,187 @@
+<?php
+
+namespace App;
+
+use App\Http\Resources\PostResource;
+use Illuminate\Bus\Queueable;
+use Illuminate\Console\Command;
+use Illuminate\Contracts\Queue\ShouldBeUnique;
+use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Database\Eloquent\Attributes\Table;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Http\Resources\Json\ResourceCollection;
+use Illuminate\Queue\InteractsWithQueue;
+
+
+class Post extends Model
+{
+	protected $table = 'blog_posts';
+
+	protected $primaryKey = 'post_id';
+
+	protected $keyType = 'string';
+
+	public $incrementing = false;
+
+	public $timestamps = false;
+
+	protected $dateFormat = 'U';
+
+	protected $connection = 'blog';
+
+	protected $fillable = ['title', 'body'];
+
+	protected $hidden = ['secret'];
+
+	protected $visible = ['title'];
+
+	protected $appends = ['excerpt'];
+
+	protected $touches = ['author'];
+
+	protected static $collectionClass = PostCollection::class;
+
+
+	public function getRouteKeyName()
+	{
+		return 'slug';
+	}
+}
+
+
+class Comment extends Model
+{
+	protected $guarded = [];
+
+	public $timestamps = true;
+
+
+	public function getRouteKeyName()
+	{
+		return $this->useSlugs ? 'slug' : 'id';
+	}
+}
+
+
+#[Table(name: 'tags')]
+class Tag extends Model
+{
+	protected $primaryKey = 'tag_id';
+
+	protected $guarded = ['id'];
+}
+
+
+abstract class BaseModel extends Model
+{
+	protected $connection = 'legacy';
+}
+
+
+class Author extends Model
+{
+	protected $table = 'authors';
+
+
+	public function describe(): string
+	{
+		return "stored in $this->table";
+	}
+}
+
+
+class PostCollection extends \Illuminate\Database\Eloquent\Collection
+{
+}
+
+
+class SendEmails extends Command
+{
+	protected $signature = 'mail:send {user}';
+
+	protected $description = 'Send a marketing email to a user';
+
+	protected $help = 'The user is given by the ID';
+
+	protected $hidden = true;
+
+	protected $aliases = ['mail:go'];
+
+
+	public function handle(): void
+	{
+	}
+}
+
+
+class StorePostRequest extends FormRequest
+{
+	protected $errorBag = 'post';
+
+	protected $stopOnFirstFailure = true;
+
+
+	public function rules(): array
+	{
+		return ['title' => 'required'];
+	}
+}
+
+
+class PostCollectionResource extends ResourceCollection
+{
+	public $collects = PostResource::class;
+}
+
+
+class PostResourceWithKeys extends JsonResource
+{
+	public $preserveKeys = true;
+}
+
+
+class ProcessPodcast implements ShouldQueue, ShouldBeUnique
+{
+	use InteractsWithQueue, Queueable;
+
+	public $tries = 5;
+
+	public $timeout = 120;
+
+	public $backoff = [10, 60];
+
+	public $maxExceptions = 3;
+
+	public $failOnTimeout = true;
+
+	public $deleteWhenMissingModels = true;
+
+	public $uniqueFor = 3600;
+
+
+	public function handle(): void
+	{
+	}
+}
+
+
+class SendShipmentNotification implements ShouldQueue
+{
+	public $connection = 'sqs';
+
+	public $queue = 'listeners';
+
+	public $delay = 60;
+
+	public $tries = 3;
+
+
+	public function handle(object $event): void
+	{
+		if ($this->tries > 1) {
+			return;
+		}
+	}
+}

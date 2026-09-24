@@ -1,0 +1,40 @@
+20: Property `Illuminate\Database\Eloquent\Model::$table` is replaced by the attribute `#[Illuminate\Database\Eloquent\Attributes\Table]`.
+22: Property `Illuminate\Database\Eloquent\Model::$primaryKey` is replaced by the attribute `#[Illuminate\Database\Eloquent\Attributes\Table]`.
+24: Property `Illuminate\Database\Eloquent\Model::$keyType` is replaced by the attribute `#[Illuminate\Database\Eloquent\Attributes\Table]`.
+26: Property `Illuminate\Database\Eloquent\Model::$incrementing` is replaced by the attribute `#[Illuminate\Database\Eloquent\Attributes\WithoutIncrementing]`.
+28: Property `Illuminate\Database\Eloquent\Model::$timestamps` is replaced by the attribute `#[Illuminate\Database\Eloquent\Attributes\WithoutTimestamps]`.
+30: Property `Illuminate\Database\Eloquent\Model::$dateFormat` is replaced by the attribute `#[Illuminate\Database\Eloquent\Attributes\DateFormat]`.
+32: Property `Illuminate\Database\Eloquent\Model::$connection` is replaced by the attribute `#[Illuminate\Database\Eloquent\Attributes\Connection]`.
+34: Property `Illuminate\Database\Eloquent\Model::$fillable` is replaced by the attribute `#[Illuminate\Database\Eloquent\Attributes\Fillable]`.
+36: Property `Illuminate\Database\Eloquent\Model::$hidden` is replaced by the attribute `#[Illuminate\Database\Eloquent\Attributes\Hidden]`.
+38: Property `Illuminate\Database\Eloquent\Model::$visible` is replaced by the attribute `#[Illuminate\Database\Eloquent\Attributes\Visible]`.
+40: Property `Illuminate\Database\Eloquent\Model::$appends` is replaced by the attribute `#[Illuminate\Database\Eloquent\Attributes\Appends]`.
+42: Property `Illuminate\Database\Eloquent\Model::$touches` is replaced by the attribute `#[Illuminate\Database\Eloquent\Attributes\Touches]`.
+44: Property `Illuminate\Database\Eloquent\Model::$collectionClass` is replaced by the attribute `#[Illuminate\Database\Eloquent\Attributes\CollectedBy]`.
+47: Method `Illuminate\Database\Eloquent\Model::getRouteKeyName()` is replaced by the attribute `#[Illuminate\Database\Eloquent\Attributes\RouteKey]`.
+56: Property `Illuminate\Database\Eloquent\Model::$guarded` is replaced by the attribute `#[Illuminate\Database\Eloquent\Attributes\Unguarded]`.
+61: Method `Illuminate\Database\Eloquent\Model::getRouteKeyName()` is replaced by the attribute `#[Illuminate\Database\Eloquent\Attributes\RouteKey]`, but its body does more than return a constant expression.
+71: Property `Illuminate\Database\Eloquent\Model::$primaryKey` is replaced by the attribute `#[Illuminate\Database\Eloquent\Attributes\Table]`.
+73: Property `Illuminate\Database\Eloquent\Model::$guarded` is replaced by the attribute `#[Illuminate\Database\Eloquent\Attributes\Guarded]`.
+79: Property `Illuminate\Database\Eloquent\Model::$connection` is replaced by the attribute `#[Illuminate\Database\Eloquent\Attributes\Connection]`, but the class is abstract, and the library may not read the attribute of a child from it.
+85: Property `Illuminate\Database\Eloquent\Model::$table` is replaced by the attribute `#[Illuminate\Database\Eloquent\Attributes\Table]`, but the class reads it itself.
+102: Property `Illuminate\Console\Command::$signature` is replaced by the attribute `#[Illuminate\Console\Attributes\Signature]`.
+104: Property `Illuminate\Console\Command::$description` is replaced by the attribute `#[Illuminate\Console\Attributes\Description]`.
+106: Property `Illuminate\Console\Command::$help` is replaced by the attribute `#[Illuminate\Console\Attributes\Help]`.
+108: Property `Illuminate\Console\Command::$hidden` is replaced by the attribute `#[Illuminate\Console\Attributes\Hidden]`.
+110: Property `Illuminate\Console\Command::$aliases` is replaced by the attribute `#[Illuminate\Console\Attributes\Aliases]`.
+121: Property `Illuminate\Foundation\Http\FormRequest::$errorBag` is replaced by the attribute `#[Illuminate\Foundation\Http\Attributes\ErrorBag]`.
+123: Property `Illuminate\Foundation\Http\FormRequest::$stopOnFirstFailure` is replaced by the attribute `#[Illuminate\Foundation\Http\Attributes\StopOnFirstFailure]`.
+135: Property `Illuminate\Http\Resources\Json\ResourceCollection::$collects` is replaced by the attribute `#[Illuminate\Http\Resources\Attributes\Collects]`.
+141: Property `Illuminate\Http\Resources\Json\JsonResource::$preserveKeys` is replaced by the attribute `#[Illuminate\Http\Resources\Attributes\PreserveKeys]`.
+149: Property `Illuminate\Contracts\Queue\ShouldQueue::$tries` is replaced by the attribute `#[Illuminate\Queue\Attributes\Tries]`.
+151: Property `Illuminate\Contracts\Queue\ShouldQueue::$timeout` is replaced by the attribute `#[Illuminate\Queue\Attributes\Timeout]`.
+153: Property `Illuminate\Contracts\Queue\ShouldQueue::$backoff` is replaced by the attribute `#[Illuminate\Queue\Attributes\Backoff]`.
+155: Property `Illuminate\Contracts\Queue\ShouldQueue::$maxExceptions` is replaced by the attribute `#[Illuminate\Queue\Attributes\MaxExceptions]`.
+157: Property `Illuminate\Contracts\Queue\ShouldQueue::$failOnTimeout` is replaced by the attribute `#[Illuminate\Queue\Attributes\FailOnTimeout]`.
+159: Property `Illuminate\Contracts\Queue\ShouldQueue::$deleteWhenMissingModels` is replaced by the attribute `#[Illuminate\Queue\Attributes\DeleteWhenMissingModels]`.
+161: Property `Illuminate\Contracts\Queue\ShouldBeUnique::$uniqueFor` is replaced by the attribute `#[Illuminate\Queue\Attributes\UniqueFor]`.
+172: Property `Illuminate\Contracts\Queue\ShouldQueue::$connection` is replaced by the attribute `#[Illuminate\Queue\Attributes\Connection]`.
+174: Property `Illuminate\Contracts\Queue\ShouldQueue::$queue` is replaced by the attribute `#[Illuminate\Queue\Attributes\Queue]`.
+176: Property `Illuminate\Contracts\Queue\ShouldQueue::$delay` is replaced by the attribute `#[Illuminate\Queue\Attributes\Delay]`.
+178: Property `Illuminate\Contracts\Queue\ShouldQueue::$tries` is replaced by the attribute `#[Illuminate\Queue\Attributes\Tries]`, but the class reads it itself.
