@@ -18,6 +18,7 @@ use Illuminate\Foundation\Http\Middleware\PreventRequestForgery as BaseVerifier;
 use Illuminate\Http\Request;
 use Illuminate\Queue\Events\JobAttempted;
 use Illuminate\Queue\Events\QueueBusy;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
@@ -28,6 +29,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\LazyCollection;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Str;
 
 
 class VerifyCsrfToken extends BaseVerifier
@@ -200,5 +202,138 @@ class OrderStats
 	public function describe(Collection $orders, LazyCollection $lines): bool
 	{
 		return $orders->hasSole() || $orders->hasMany(fn($order) => $order->paid) || $lines->hasSole();
+	}
+}
+
+
+class LegacyHelpers
+{
+	public function slug(array $post): array
+	{
+		return [
+			str_slug($post['title']),
+			Str::limit($post['body'], 100),
+			Arr::get($post, 'author.name', 'anonymous'),
+			Str::studly('snake_case'),
+			array_map('str_slug', ['A B']),
+			\Illuminate\Support\Facades\Request::input('page'),
+			\Illuminate\Support\Facades\Request::all(),
+			\Illuminate\Support\Facades\Lang::get('messages.welcome'),
+			\Illuminate\Support\Facades\Lang::choice('messages.apples', 3),
+			trans('messages.welcome'),
+		];
+	}
+
+
+	public function relation(\Illuminate\Database\Eloquent\Relations\BelongsTo $relation): string
+	{
+		return $relation->getRelationName();
+	}
+
+
+	public function authorize(): \Illuminate\Auth\Access\Response
+	{
+		return new \Illuminate\Auth\Access\Response(true, 'Allowed');
+	}
+}
+
+
+class UserResource extends \Illuminate\Http\Resources\Json\JsonResource
+{
+}
+
+
+class ProcessPodcast implements \Illuminate\Contracts\Queue\ShouldQueue
+{
+	use \Illuminate\Foundation\Bus\Dispatchable;
+
+	public $retryAfter = 30;
+
+
+	public function retryAfter(): int
+	{
+		return $this->retryAfter;
+	}
+
+
+	public function handle(): void
+	{
+	}
+}
+
+
+class LegacyController
+{
+	use \Illuminate\Foundation\Bus\DispatchesJobs;
+
+
+	public function store(\Illuminate\Database\Eloquent\Model $user, \Illuminate\Support\Collection $items, \Illuminate\Routing\Redirector $redirector): mixed
+	{
+		ProcessPodcast::dispatchSync();
+		$this->dispatchSync(new ProcessPodcast);
+		dispatch_now(new ProcessPodcast);
+		$user->makeHidden('password');
+		$items->reduce(fn($carry, $item, $key) => $carry + $item, 0);
+		$items->takeUntil(fn($item) => $item > 3);
+		\Illuminate\Support\Facades\Mail::to('a@b.c')->send(new \Illuminate\Mail\Mailable);
+		return $redirector->route('home');
+	}
+}
+
+
+class LegacyTest extends \Illuminate\Foundation\Testing\TestCase
+{
+	use \Illuminate\Foundation\Testing\Concerns\InteractsWithDatabase;
+
+
+	public function createApplication()
+	{
+	}
+
+
+	public function testDeleted(\Illuminate\Database\Eloquent\Model $user, \Illuminate\Testing\TestResponse $response): void
+	{
+		$this->assertModelMissing($user);
+		$this->assertDatabaseMissing('users', ['id' => 1]);
+		$response->json('data');
+		\Illuminate\Support\Facades\Notification::assertSentTimes('App\Notifications\Invoice', 2);
+	}
+}
+
+
+class PolicyTranslator implements \Illuminate\Contracts\Translation\Translator
+{
+	public function trans($key, array $replace = [], $locale = null)
+	{
+		return $key;
+	}
+
+
+	public function transChoice($key, $number, array $replace = [], $locale = null)
+	{
+		return $key;
+	}
+
+
+	public function get($key, array $replace = [], $locale = null)
+	{
+		return $key;
+	}
+
+
+	public function choice($key, $number, array $replace = [], $locale = null)
+	{
+		return $key;
+	}
+
+
+	public function getLocale()
+	{
+		return 'en';
+	}
+
+
+	public function setLocale($locale)
+	{
 	}
 }
