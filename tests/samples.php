@@ -16,6 +16,11 @@ const UpgradingRules = [
 	'override-signature',
 ];
 
+/** The rules of UpgradingRules that offer a newer shape of code that is right as it is. */
+const ModernizationRules = [
+	'attribute-for-member',
+];
+
 
 /**
  * What the upgrading file of a library has wrong, checked against the installed library.

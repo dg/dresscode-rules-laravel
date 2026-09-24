@@ -4,14 +4,16 @@
  * Runs the upgrading files over code written for the current API, the tests of the framework itself or an application
  * skeleton, which they must leave as they are, except the files that use an old API on purpose:
  *
- *   php tests/corpus.php <dir> [<subdir>...] [--rename=<Class::member>=<name>] [--keep]
+ *   php tests/corpus.php <dir> [<subdir>...] [--rename=<Class::member>=<name>] [--modernization] [--keep]
  *
  * Copies the directory, or the named subdirectories of it, into corpus-<pid>/ of the root, fixes the copy with the
  * upgrading files of this package alone, and reports every file the run changed: `legacy` for a file known to use an
  * old API on purpose, `CHANGED` with its diff for any other, `BROKEN` for one php -l refuses, and a second run must
  * change nothing. Take the tests of a checkout of the framework at the tag of the installed version. --rename adds an
- * entry of replaced-members that is wrong on purpose, for the harness to prove it fails; --keep leaves the copy. The
- * verdict is the exit code: 1 for a file CHANGED or BROKEN, or a second run that changed anything.
+ * entry of replaced-members that is wrong on purpose, for the harness to prove it fails; --modernization runs the
+ * modernizations alone, the attributes of 13 among them, whose rewrites are `offered` with their diff to be read;
+ * --keep leaves the copy. The verdict is the exit code: 1 for a file CHANGED or BROKEN, or a second run that changed
+ * anything.
  */
 
 require __DIR__ . '/../vendor/autoload.php';
@@ -28,7 +30,7 @@ $options = array_values(array_filter($args, fn(string $arg) => str_starts_with($
 $subdirs = array_values(array_diff($args, $options));
 $source = array_shift($subdirs);
 if ($source === null || !is_dir($source)) {
-	exit("Usage: php tests/corpus.php <dir> [<subdir>...] [--rename=<Class::member>=<name>] [--keep]\n");
+	exit("Usage: php tests/corpus.php <dir> [<subdir>...] [--rename=<Class::member>=<name>] [--modernization] [--keep]\n");
 }
 
 $source = rtrim(str_replace('\\', '/', $source), '/');
@@ -61,8 +63,13 @@ Nette\Utils\FileSystem::write("$php/prepend.php", '<?php $map = ' . var_export(f
 	. ' putenv(' . var_export("APP_SERVICES_CACHE=$cache/services-", return: true) . ' . getmypid() . \'.php\');');
 
 $originals = hashFiles($corpus);
-// the data alone: override-signature declares what a child may leave out, which is no mistake of the data
-$rules = array_fill_keys(array_diff(UpgradingRules, ['override-signature']), true);
+// the data alone: override-signature declares what a child may leave out, which is no mistake of the data, and the
+// modernizations are offered for code that is right as it is
+$modernization = in_array('--modernization', $options, true);
+$rules = array_fill_keys(
+	$modernization ? ModernizationRules : array_diff(UpgradingRules, ['override-signature'], ModernizationRules),
+	true,
+);
 foreach ($options as $option) {
 	if (preg_match('~^--rename=(.+::\w+)=(\w+)$~', $option, $m)) {
 		$rules['replaced-members'] = [$m[1] => $m[2]];
@@ -101,13 +108,14 @@ foreach ([1, 2] as $run) {
 	$output = [];
 }
 
-$counts = ['legacy' => 0, 'CHANGED' => 0, 'BROKEN' => 0];
+$counts = ['legacy' => 0, 'offered' => 0, 'CHANGED' => 0, 'BROKEN' => 0];
 foreach (array_keys(array_diff_assoc($copies, $originals)) as $file) {
 	$path = "$corpus/$file";
 	exec('php -l ' . escapeshellarg($path) . ' 2>&1', $lint, $lintExit);
 	$lint = [];
 	$verdict = match (true) {
 		$lintExit !== 0 => 'BROKEN',
+		$modernization => 'offered',
 		isLegacy($file) => 'legacy',
 		default => 'CHANGED',
 	};
@@ -117,11 +125,11 @@ foreach (array_keys(array_diff_assoc($copies, $originals)) as $file) {
 		exec('git diff --no-index --no-color -U1 ' . escapeshellarg("$source/$file") . ' ' . escapeshellarg($path) . ' 2>&1', $diff);
 		echo implode("\n", array_slice($diff, 4)) . "\n";
 		$diff = [];
-		$failed = true;
+		$failed = $failed || $verdict !== 'offered';
 	}
 }
 
-echo 'files ' . count($originals) . ', changed ' . array_sum($counts) . " (legacy $counts[legacy], CHANGED $counts[CHANGED], BROKEN $counts[BROKEN])\n";
+echo 'files ' . count($originals) . ', changed ' . array_sum($counts) . " (legacy $counts[legacy], offered $counts[offered], CHANGED $counts[CHANGED], BROKEN $counts[BROKEN])\n";
 if (!in_array('--keep', $options, true)) {
 	try {
 		Nette\Utils\FileSystem::delete("$root/$name.neon");
