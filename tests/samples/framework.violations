@@ -44,3 +44,32 @@
 202: Method `Illuminate\Support\Enumerable::containsOneItem()` is replaced by `Enumerable::hasSole()`
 202: Method `Illuminate\Support\Enumerable::containsManyItems()` is replaced by `Enumerable::hasMany()`
 202: Method `Illuminate\Support\Enumerable::containsOneItem()` is replaced by `Enumerable::hasSole()`
+212: Function `str_slug()` is replaced by `Illuminate\Support\Str::slug()`
+213: Function `str_limit()` is replaced by `Illuminate\Support\Str::limit()`
+214: Function `array_get()` is replaced by `Illuminate\Support\Arr::get()`
+215: Function `studly_case()` is replaced by `Illuminate\Support\Str::studly()`
+217: Class `Illuminate\Support\Facades\Input` is replaced by `Illuminate\Support\Facades\Request`
+217: Static method `Illuminate\Support\Facades\Input::get()` is replaced by `Illuminate\Support\Facades\Request::input()`
+218: Class `Illuminate\Support\Facades\Input` is replaced by `Illuminate\Support\Facades\Request`
+219: Static method `Illuminate\Support\Facades\Lang::trans()` is replaced by `Lang::get()`
+220: Static method `Illuminate\Support\Facades\Lang::transChoice()` is replaced by `Lang::choice()`
+228: Method `Illuminate\Database\Eloquent\Relations\BelongsTo::getRelation()` is replaced by `BelongsTo::getRelationName()`
+234: Constructor `Illuminate\Auth\Access\Response::__construct()` is replaced by `new \Illuminate\Auth\Access\Response(true, $message)`
+239: Class `Illuminate\Http\Resources\Json\Resource` is replaced by `Illuminate\Http\Resources\Json\JsonResource`
+248: Property `Illuminate\Contracts\Queue\ShouldQueue::$retryAfter` is forbidden: declare the property `$backoff`, which the queue reads in its place
+251: Method `Illuminate\Contracts\Queue\ShouldQueue::retryAfter()` is forbidden: implement `backoff()`, which the queue reads in its place
+270: Static method `Illuminate\Foundation\Bus\Dispatchable::dispatchNow()` is replaced by `Dispatchable::dispatchSync()`
+271: Method `Illuminate\Foundation\Bus\DispatchesJobs::dispatchNow()` is replaced by `DispatchesJobs::dispatchSync()`
+272: Function `dispatch_now()` is replaced by `dispatch_sync()`
+273: Method `Illuminate\Database\Eloquent\Concerns\HidesAttributes::addHidden()` is replaced by `makeHidden($attributes)`
+274: Method `Illuminate\Support\Enumerable::reduceWithKeys()` is replaced by `Enumerable::reduce()`
+275: Method `Illuminate\Support\Enumerable::until()` is replaced by `Enumerable::takeUntil()`
+276: Method `Illuminate\Mail\PendingMail::sendNow()` is replaced by `PendingMail::send()`
+277: Method `Illuminate\Routing\Redirector::home()` is replaced by `route('home')`
+292: Class `Illuminate\Foundation\Testing\TestResponse` is replaced by `Illuminate\Testing\TestResponse`
+294: Method `Illuminate\Foundation\Testing\Concerns\InteractsWithDatabase::assertDeleted()` is replaced by `assertModelMissing($model)`
+295: Method `Illuminate\Foundation\Testing\Concerns\InteractsWithDatabase::assertDeleted()` is replaced by `assertDatabaseMissing($table, ...$rest)`
+296: Method `Illuminate\Testing\TestResponse::decodeResponseJson()` is replaced by `json($key)`
+297: Static method `Illuminate\Support\Facades\Notification::assertTimesSent()` is replaced by `assertSentTimes($notification, $count)`
+304: Method `Illuminate\Contracts\Translation\Translator::trans()` is replaced by `Translator::get()`, but the class declares `get()` already
+310: Method `Illuminate\Contracts\Translation\Translator::transChoice()` is replaced by `Translator::choice()`, but the class declares `choice()` already
