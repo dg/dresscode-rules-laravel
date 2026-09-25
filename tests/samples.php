@@ -1,14 +1,19 @@
 <?php declare(strict_types=1);
 
 use DressCode\Testing\UpgradingTester;
+use DressCodeUpgrade\Laravel\Plugin;
 
-/** The decisions a sample runs with beside the upgrading files: the signature of an override as the ancestor declares it. */
+/**
+ * The decisions a sample runs with beside the upgrading files: the signature of an override as the ancestor declares it,
+ * and those of the rules of this package that read the code alone.
+ */
 const SampleDecisions = [
 	'classes' => ['overridingMethod' => ['signature' => 'required', 'parameterName' => 'required']],
+	'laravel' => ['castsMethod' => 'required'],
 ];
 
 
-/** The decisions the corpus is run with: the maps the upgrading files feed. */
+/** The decisions the corpus is run with: the maps the upgrading files feed, and the rules of this package that read the code alone. */
 const UpgradingDecisions = [
 	'upgrading.api.replacedClasses',
 	'upgrading.api.replacedMembers',
@@ -18,11 +23,13 @@ const UpgradingDecisions = [
 	'upgrading.api.forbiddenMembers',
 	'upgrading.api.forbiddenFunctions',
 	'upgrading.api.attributeForMember',
+	'laravel.castsMethod',
 ];
 
 /** The decisions of UpgradingDecisions that offer a newer shape of code that is right as it is. */
 const ModernizationDecisions = [
 	'upgrading.api.attributeForMember',
+	'laravel.castsMethod',
 ];
 
 
@@ -33,7 +40,7 @@ const ModernizationDecisions = [
 function lintLibrary(string $library): array
 {
 	$root = dirname(__DIR__);
-	return UpgradingTester::collectProblems("$root/upgrading/$library.neon", $root);
+	return UpgradingTester::collectProblems("$root/upgrading/$library.neon", $root, array_keys((new Plugin)->getManifest()->rules));
 }
 
 

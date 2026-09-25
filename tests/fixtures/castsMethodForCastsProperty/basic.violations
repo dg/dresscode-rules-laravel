@@ -1,0 +1,5 @@
+16: Property `Illuminate\Database\Eloquent\Model::$casts` is replaced by the method `casts()`.
+31: Property `Illuminate\Database\Eloquent\Model::$casts` is replaced by the method `casts()`.
+38: Property `Illuminate\Database\Eloquent\Model::$casts` is replaced by the method `casts()`, but the class declares `casts()` already.
+50: Property `Illuminate\Database\Eloquent\Model::$casts` is replaced by the method `casts()`, but the class reads it itself.
+62: Property `Illuminate\Database\Eloquent\Model::$casts` is replaced by the method `casts()`, but it is declared together with other properties.

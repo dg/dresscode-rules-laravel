@@ -96,6 +96,8 @@ since 11.42:
 		Illuminate\Support\Facades\URL::forceRootUrl: useOrigin
 
 since 11:
+	laravel.castsMethod: required
+
 	replacedCalls:
 		'Illuminate\Auth\AuthenticationException::redirectTo()': 'redirectTo(\request())'
 		'Illuminate\Cache\RateLimiting\Limit::$decayMinutes::get': '$this->decaySeconds / 60'

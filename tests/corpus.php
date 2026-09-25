@@ -78,6 +78,7 @@ Nette\Utils\FileSystem::write("$root/$name.neon", Nette\Neon\Neon::encode([
 	'fileExtensions' => 'php',
 	'typeAnalysis' => 'phpstan',
 	'upgrading' => $upgrading,
+	'laravel' => SampleDecisions['laravel'],
 ], blockMode: true));
 
 $failed = false;
