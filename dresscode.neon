@@ -15,3 +15,11 @@ excludePaths:
 fileExtensions:
 	- php
 	- phpt
+
+overrides:
+	-
+		paths: [src]
+		nameResolution: certain
+		use:
+			- compilerOptimizations
+			- deprecations

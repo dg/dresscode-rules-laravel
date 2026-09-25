@@ -43,6 +43,10 @@ class Post extends Model
 
 	protected static $collectionClass = PostCollection::class;
 
+	protected $casts = [
+		'published_at' => 'datetime',
+	];
+
 
 	public function getRouteKeyName()
 	{

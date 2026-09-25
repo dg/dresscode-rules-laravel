@@ -2,7 +2,17 @@
 
 use DressCode\Testing\UpgradingTester;
 
-/** The rules a sample is run with: those the upgrading files feed. */
+/**
+ * The decisions a sample runs with beside the upgrading files: the signature of an override as the ancestor declares it,
+ * and those of the rules of this package that read the code alone.
+ */
+const SampleDecisions = [
+	'classes' => ['overridingSignature' => 'asAncestor', 'overridingParameterNames' => 'asAncestor'],
+	'laravel' => ['castsMethod' => 'adopted', 'scopeAttribute' => 'adopted'],
+];
+
+
+/** The rules the corpus is run with: those the upgrading files feed, and those of this package that read the code alone. */
 const UpgradingRules = [
 	'replacedClasses',
 	'replacedMembers',
@@ -14,11 +24,13 @@ const UpgradingRules = [
 	'attributeForAnnotation',
 	'attributeForMember',
 	'overridingSignature',
+	'laravel/castsMethodForCastsProperty',
 ];
 
 /** The rules of UpgradingRules that offer a newer shape of code that is right as it is. */
 const ModernizationRules = [
 	'attributeForMember',
+	'laravel/castsMethodForCastsProperty',
 ];
 
 

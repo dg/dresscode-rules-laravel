@@ -1,0 +1,78 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Model;
+
+class User extends Model
+{
+	protected $fillable = ['name'];
+
+	/**
+	 * The attributes that should be cast.
+	 *
+	 * @return array<string, string>
+	 */
+	protected function casts(): array
+	{
+		return [
+			'email_verified_at' => 'datetime',
+			'is_admin' => 'boolean',
+		];
+	}
+
+
+	public function isAdmin(): bool
+	{
+		return $this->is_admin;
+	}
+}
+
+
+class Post extends Model
+{
+	public function casts(): array
+	{
+		return ['published_at' => 'datetime'];
+	}
+}
+
+
+// reported and left
+class Comment extends Model
+{
+	protected $casts = ['approved' => 'boolean'];
+
+
+	protected function casts(): array
+	{
+		return ['meta' => 'array'];
+	}
+}
+
+
+class Tag extends Model
+{
+	protected $casts = ['count' => 'integer'];
+
+
+	public function castOf(string $key): ?string
+	{
+		return $this->casts[$key] ?? null;
+	}
+}
+
+
+class Setting extends Model
+{
+	protected $casts = self::Casts, $table = 'settings';
+
+	private const Casts = ['value' => 'json'];
+}
+
+
+// left alone: no model
+class Report
+{
+	protected $casts = ['total' => 'float'];
+}
