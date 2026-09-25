@@ -9,6 +9,7 @@ require __DIR__ . '/bootstrap.php';
 
 $rules = [
 	'castsMethodForCastsProperty' => DressCodeRules\Laravel\CastsMethodForCastsPropertyRule::class,
+	'scopeAttributeForScopePrefix' => DressCodeRules\Laravel\ScopeAttributeForScopePrefixRule::class,
 ];
 
 foreach ($rules as $slug => $class) {

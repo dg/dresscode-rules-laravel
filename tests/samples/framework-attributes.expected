@@ -65,6 +65,12 @@ class Post extends Model
 			'published_at' => 'datetime',
 		];
 	}
+
+
+	public function scopePublished(\Illuminate\Database\Eloquent\Builder $query): void
+	{
+		$query->whereNotNull('published_at');
+	}
 }
 
 

@@ -1,0 +1,11 @@
+14: Method `scopePublished()` is replaced by the method `published()` with the attribute `#[Illuminate\Database\Eloquent\Attributes\Scope]`.
+	risky BehaviorChanges: a direct call of the old name in another file stops working
+20: Method `scopeOfType()` is replaced by the method `ofType()` with the attribute `#[Illuminate\Database\Eloquent\Attributes\Scope]`.
+	risky BehaviorChanges: a direct call of the old name in another file stops working
+26: Method `scopePopular()` is replaced by the method `popular()` with the attribute `#[Illuminate\Database\Eloquent\Attributes\Scope]`.
+	risky BehaviorChanges: a direct call of the old name in another file stops working
+42: Method `scopeApproved()` is replaced by the method `approved()` with the attribute `#[Illuminate\Database\Eloquent\Attributes\Scope]`, but the class declares `approved()` already.
+54: Method `scopeRecent()` is replaced by the method `recent()` with the attribute `#[Illuminate\Database\Eloquent\Attributes\Scope]`, but it is static.
+59: Method `scopeVisible()` is replaced by the method `visible()` with the attribute `#[Illuminate\Database\Eloquent\Attributes\Scope]`.
+	risky BehaviorChanges: a direct call of the old name in another file stops working
+65: Method `scopeApprovedByModerator()` is replaced by the method `approvedByModerator()` with the attribute `#[Illuminate\Database\Eloquent\Attributes\Scope]`, but the class calls it by that name.

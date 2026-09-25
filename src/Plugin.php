@@ -13,6 +13,6 @@ final class Plugin implements \DressCode\Plugin
 {
 	public function getManifest(): PluginManifest
 	{
-		return new PluginManifest(rules: [CastsMethodForCastsPropertyRule::class], section: 'laravel');
+		return new PluginManifest(rules: [CastsMethodForCastsPropertyRule::class, ScopeAttributeForScopePrefixRule::class], section: 'laravel');
 	}
 }
