@@ -79,6 +79,9 @@ since 12.5:
 	replacedMembers:
 		Illuminate\Database\Query\Grammars\PostgresGrammar::cascadeOnTrucate: cascadeOnTruncate
 
+since 12.4:
+	laravel.scopeAttribute: required
+
 since 12:
 	replacedClasses:
 		Illuminate\Database\Eloquent\Concerns\HasVersion7Uuids: Illuminate\Database\Eloquent\Concerns\HasUuids

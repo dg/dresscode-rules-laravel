@@ -13,29 +13,30 @@
 44: Property `Illuminate\Database\Eloquent\Model::$collectionClass` is replaced by the attribute `#[Illuminate\Database\Eloquent\Attributes\CollectedBy]`.
 46: Property `Illuminate\Database\Eloquent\Model::$casts` is replaced by the method `casts()`.
 51: Method `Illuminate\Database\Eloquent\Model::getRouteKeyName()` is replaced by the attribute `#[Illuminate\Database\Eloquent\Attributes\RouteKey]`.
-60: Property `Illuminate\Database\Eloquent\Model::$guarded` is replaced by the attribute `#[Illuminate\Database\Eloquent\Attributes\Unguarded]`.
-65: Method `Illuminate\Database\Eloquent\Model::getRouteKeyName()` is replaced by the attribute `#[Illuminate\Database\Eloquent\Attributes\RouteKey]`, but its body does more than return a constant expression.
-75: Property `Illuminate\Database\Eloquent\Model::$primaryKey` is replaced by the attribute `#[Illuminate\Database\Eloquent\Attributes\Table]`.
-77: Property `Illuminate\Database\Eloquent\Model::$guarded` is replaced by the attribute `#[Illuminate\Database\Eloquent\Attributes\Guarded]`.
-83: Property `Illuminate\Database\Eloquent\Model::$connection` is replaced by the attribute `#[Illuminate\Database\Eloquent\Attributes\Connection]`, but the class is abstract, and the library may not read the attribute of a child from it.
-89: Property `Illuminate\Database\Eloquent\Model::$table` is replaced by the attribute `#[Illuminate\Database\Eloquent\Attributes\Table]`, but the class reads it itself.
-106: Property `Illuminate\Console\Command::$signature` is replaced by the attribute `#[Illuminate\Console\Attributes\Signature]`.
-108: Property `Illuminate\Console\Command::$description` is replaced by the attribute `#[Illuminate\Console\Attributes\Description]`.
-110: Property `Illuminate\Console\Command::$help` is replaced by the attribute `#[Illuminate\Console\Attributes\Help]`.
-112: Property `Illuminate\Console\Command::$hidden` is replaced by the attribute `#[Illuminate\Console\Attributes\Hidden]`.
-114: Property `Illuminate\Console\Command::$aliases` is replaced by the attribute `#[Illuminate\Console\Attributes\Aliases]`.
-125: Property `Illuminate\Foundation\Http\FormRequest::$errorBag` is replaced by the attribute `#[Illuminate\Foundation\Http\Attributes\ErrorBag]`.
-127: Property `Illuminate\Foundation\Http\FormRequest::$stopOnFirstFailure` is replaced by the attribute `#[Illuminate\Foundation\Http\Attributes\StopOnFirstFailure]`.
-139: Property `Illuminate\Http\Resources\Json\ResourceCollection::$collects` is replaced by the attribute `#[Illuminate\Http\Resources\Attributes\Collects]`.
-145: Property `Illuminate\Http\Resources\Json\JsonResource::$preserveKeys` is replaced by the attribute `#[Illuminate\Http\Resources\Attributes\PreserveKeys]`.
-153: Property `Illuminate\Contracts\Queue\ShouldQueue::$tries` is replaced by the attribute `#[Illuminate\Queue\Attributes\Tries]`.
-155: Property `Illuminate\Contracts\Queue\ShouldQueue::$timeout` is replaced by the attribute `#[Illuminate\Queue\Attributes\Timeout]`.
-157: Property `Illuminate\Contracts\Queue\ShouldQueue::$backoff` is replaced by the attribute `#[Illuminate\Queue\Attributes\Backoff]`.
-159: Property `Illuminate\Contracts\Queue\ShouldQueue::$maxExceptions` is replaced by the attribute `#[Illuminate\Queue\Attributes\MaxExceptions]`.
-161: Property `Illuminate\Contracts\Queue\ShouldQueue::$failOnTimeout` is replaced by the attribute `#[Illuminate\Queue\Attributes\FailOnTimeout]`.
-163: Property `Illuminate\Contracts\Queue\ShouldQueue::$deleteWhenMissingModels` is replaced by the attribute `#[Illuminate\Queue\Attributes\DeleteWhenMissingModels]`.
-165: Property `Illuminate\Contracts\Queue\ShouldBeUnique::$uniqueFor` is replaced by the attribute `#[Illuminate\Queue\Attributes\UniqueFor]`.
-176: Property `Illuminate\Contracts\Queue\ShouldQueue::$connection` is replaced by the attribute `#[Illuminate\Queue\Attributes\Connection]`.
-178: Property `Illuminate\Contracts\Queue\ShouldQueue::$queue` is replaced by the attribute `#[Illuminate\Queue\Attributes\Queue]`.
-180: Property `Illuminate\Contracts\Queue\ShouldQueue::$delay` is replaced by the attribute `#[Illuminate\Queue\Attributes\Delay]`.
-182: Property `Illuminate\Contracts\Queue\ShouldQueue::$tries` is replaced by the attribute `#[Illuminate\Queue\Attributes\Tries]`, but the class reads it itself.
+57: Method `scopePublished()` is replaced by the method `published()` with the attribute `#[Illuminate\Database\Eloquent\Attributes\Scope]`.
+66: Property `Illuminate\Database\Eloquent\Model::$guarded` is replaced by the attribute `#[Illuminate\Database\Eloquent\Attributes\Unguarded]`.
+71: Method `Illuminate\Database\Eloquent\Model::getRouteKeyName()` is replaced by the attribute `#[Illuminate\Database\Eloquent\Attributes\RouteKey]`, but its body does more than return a constant expression.
+81: Property `Illuminate\Database\Eloquent\Model::$primaryKey` is replaced by the attribute `#[Illuminate\Database\Eloquent\Attributes\Table]`.
+83: Property `Illuminate\Database\Eloquent\Model::$guarded` is replaced by the attribute `#[Illuminate\Database\Eloquent\Attributes\Guarded]`.
+89: Property `Illuminate\Database\Eloquent\Model::$connection` is replaced by the attribute `#[Illuminate\Database\Eloquent\Attributes\Connection]`, but the class is abstract, and the library may not read the attribute of a child from it.
+95: Property `Illuminate\Database\Eloquent\Model::$table` is replaced by the attribute `#[Illuminate\Database\Eloquent\Attributes\Table]`, but the class reads it itself.
+112: Property `Illuminate\Console\Command::$signature` is replaced by the attribute `#[Illuminate\Console\Attributes\Signature]`.
+114: Property `Illuminate\Console\Command::$description` is replaced by the attribute `#[Illuminate\Console\Attributes\Description]`.
+116: Property `Illuminate\Console\Command::$help` is replaced by the attribute `#[Illuminate\Console\Attributes\Help]`.
+118: Property `Illuminate\Console\Command::$hidden` is replaced by the attribute `#[Illuminate\Console\Attributes\Hidden]`.
+120: Property `Illuminate\Console\Command::$aliases` is replaced by the attribute `#[Illuminate\Console\Attributes\Aliases]`.
+131: Property `Illuminate\Foundation\Http\FormRequest::$errorBag` is replaced by the attribute `#[Illuminate\Foundation\Http\Attributes\ErrorBag]`.
+133: Property `Illuminate\Foundation\Http\FormRequest::$stopOnFirstFailure` is replaced by the attribute `#[Illuminate\Foundation\Http\Attributes\StopOnFirstFailure]`.
+145: Property `Illuminate\Http\Resources\Json\ResourceCollection::$collects` is replaced by the attribute `#[Illuminate\Http\Resources\Attributes\Collects]`.
+151: Property `Illuminate\Http\Resources\Json\JsonResource::$preserveKeys` is replaced by the attribute `#[Illuminate\Http\Resources\Attributes\PreserveKeys]`.
+159: Property `Illuminate\Contracts\Queue\ShouldQueue::$tries` is replaced by the attribute `#[Illuminate\Queue\Attributes\Tries]`.
+161: Property `Illuminate\Contracts\Queue\ShouldQueue::$timeout` is replaced by the attribute `#[Illuminate\Queue\Attributes\Timeout]`.
+163: Property `Illuminate\Contracts\Queue\ShouldQueue::$backoff` is replaced by the attribute `#[Illuminate\Queue\Attributes\Backoff]`.
+165: Property `Illuminate\Contracts\Queue\ShouldQueue::$maxExceptions` is replaced by the attribute `#[Illuminate\Queue\Attributes\MaxExceptions]`.
+167: Property `Illuminate\Contracts\Queue\ShouldQueue::$failOnTimeout` is replaced by the attribute `#[Illuminate\Queue\Attributes\FailOnTimeout]`.
+169: Property `Illuminate\Contracts\Queue\ShouldQueue::$deleteWhenMissingModels` is replaced by the attribute `#[Illuminate\Queue\Attributes\DeleteWhenMissingModels]`.
+171: Property `Illuminate\Contracts\Queue\ShouldBeUnique::$uniqueFor` is replaced by the attribute `#[Illuminate\Queue\Attributes\UniqueFor]`.
+182: Property `Illuminate\Contracts\Queue\ShouldQueue::$connection` is replaced by the attribute `#[Illuminate\Queue\Attributes\Connection]`.
+184: Property `Illuminate\Contracts\Queue\ShouldQueue::$queue` is replaced by the attribute `#[Illuminate\Queue\Attributes\Queue]`.
+186: Property `Illuminate\Contracts\Queue\ShouldQueue::$delay` is replaced by the attribute `#[Illuminate\Queue\Attributes\Delay]`.
+188: Property `Illuminate\Contracts\Queue\ShouldQueue::$tries` is replaced by the attribute `#[Illuminate\Queue\Attributes\Tries]`, but the class reads it itself.

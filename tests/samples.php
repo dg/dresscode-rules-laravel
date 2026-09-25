@@ -9,7 +9,7 @@ use DressCodeUpgrade\Laravel\Plugin;
  */
 const SampleDecisions = [
 	'classes' => ['overridingMethod' => ['signature' => 'required', 'parameterName' => 'required']],
-	'laravel' => ['castsMethod' => 'required'],
+	'laravel' => ['castsMethod' => 'required', 'scopeAttribute' => 'required'],
 ];
 
 
@@ -24,12 +24,14 @@ const UpgradingDecisions = [
 	'upgrading.api.forbiddenFunctions',
 	'upgrading.api.attributeForMember',
 	'laravel.castsMethod',
+	'laravel.scopeAttribute',
 ];
 
 /** The decisions of UpgradingDecisions that offer a newer shape of code that is right as it is. */
 const ModernizationDecisions = [
 	'upgrading.api.attributeForMember',
 	'laravel.castsMethod',
+	'laravel.scopeAttribute',
 ];
 
 

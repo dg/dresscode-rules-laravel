@@ -1,0 +1,77 @@
+<?php
+// risky
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
+
+class Post extends Model
+{
+	/**
+	 * Only the published posts.
+	 */
+	public function scopePublished(Builder $query): void
+	{
+		$query->whereNotNull('published_at');
+	}
+
+
+	protected function scopeOfType(Builder $query, string $type): void
+	{
+		$query->where('type', $type);
+	}
+
+
+	function scopePopular(Builder $query): Builder
+	{
+		return $query->where('votes', '>', 100);
+	}
+
+
+	public function scopes(): array
+	{
+		return [];
+	}
+}
+
+
+// reported and left
+class Comment extends Model
+{
+	public function scopeApproved(Builder $query): void
+	{
+		$query->where('approved', true);
+	}
+
+
+	public function approved(): bool
+	{
+		return true;
+	}
+
+
+	public static function scopeRecent(Builder $query): void
+	{
+	}
+
+
+	public function scopeVisible(Builder $query): void
+	{
+		$this->scopeApprovedByModerator($query);
+	}
+
+
+	public function scopeApprovedByModerator(Builder $query): void
+	{
+	}
+}
+
+
+// left alone: no model
+class Report
+{
+	public function scopeYear(int $year): void
+	{
+	}
+}
