@@ -13,6 +13,6 @@ final class Extension implements \DressCode\Extension
 {
 	public function getConfig(): Config
 	{
-		return new Config(extensions: [CastsMethodForCastsPropertyRule::class]);
+		return new Config(extensions: [CastsMethodForCastsPropertyRule::class, ScopeAttributeForScopePrefixRule::class]);
 	}
 }

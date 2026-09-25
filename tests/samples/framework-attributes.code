@@ -52,6 +52,12 @@ class Post extends Model
 	{
 		return 'slug';
 	}
+
+
+	public function scopePublished(\Illuminate\Database\Eloquent\Builder $query): void
+	{
+		$query->whereNotNull('published_at');
+	}
 }
 
 

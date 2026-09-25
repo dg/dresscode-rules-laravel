@@ -15,12 +15,14 @@ const UpgradingRules = [
 	'attribute-for-member',
 	'override-signature',
 	'laravel/casts-method-for-casts-property',
+	'laravel/scope-attribute-for-scope-prefix',
 ];
 
 /** The rules of UpgradingRules that offer a newer shape of code that is right as it is. */
 const ModernizationRules = [
 	'attribute-for-member',
 	'laravel/casts-method-for-casts-property',
+	'laravel/scope-attribute-for-scope-prefix',
 ];
 
 
