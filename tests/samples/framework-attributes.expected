@@ -59,6 +59,12 @@ use Illuminate\Queue\InteractsWithQueue;
 #[RouteKey('slug')]
 class Post extends Model
 {
+	protected function casts(): array
+	{
+		return [
+			'published_at' => 'datetime',
+		];
+	}
 }
 
 

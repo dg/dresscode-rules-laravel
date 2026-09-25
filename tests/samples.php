@@ -2,7 +2,7 @@
 
 use DressCode\Testing\UpgradingTester;
 
-/** The rules a sample is run with: those the upgrading files feed. */
+/** The rules a sample is run with: those the upgrading files feed, and those of this package that read the code alone. */
 const UpgradingRules = [
 	'replaced-classes',
 	'replaced-members',
@@ -14,11 +14,13 @@ const UpgradingRules = [
 	'attribute-for-annotation',
 	'attribute-for-member',
 	'override-signature',
+	'laravel/casts-method-for-casts-property',
 ];
 
 /** The rules of UpgradingRules that offer a newer shape of code that is right as it is. */
 const ModernizationRules = [
 	'attribute-for-member',
+	'laravel/casts-method-for-casts-property',
 ];
 
 
