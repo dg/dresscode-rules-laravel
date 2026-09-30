@@ -3,7 +3,7 @@
 namespace DressCode\Laravel;
 
 use DressCode\Analyses\Types;
-use DressCode\{Group, NodeRule, RuleContext, RuleInfo, Stage, Tristate};
+use DressCode\{NodeRule, RuleContext, RuleGroup, RuleInfo, Stage, Tristate};
 use Illuminate;
 use PhpSyntax\Analyses\NameResolver;
 use PhpSyntax\{Node, Parser, Printer, Token, Trivia, Visibility};
@@ -26,7 +26,7 @@ use function count;
 	'laravel/casts-method-for-casts-property',
 	Stage::Structure,
 	description: 'Returns the casts of a model from its method `casts()` instead of the property `$casts`',
-	group: Group::Modernization,
+	group: RuleGroup::Modernization,
 	modifiesComments: true,
 	requires: ['laravel/framework' => '>=11.0'],
 )]

@@ -3,7 +3,7 @@
 namespace DressCode\Laravel;
 
 use DressCode\Analyses\Types;
-use DressCode\{Group, NodeRule, Risk, RuleContext, RuleInfo, Stage, Tristate};
+use DressCode\{NodeRule, Risk, RuleContext, RuleGroup, RuleInfo, Stage, Tristate};
 use DressCode\Rules\CodeWriter;
 use Illuminate;
 use PhpSyntax\Analyses\NameResolver;
@@ -27,7 +27,7 @@ use PhpSyntax\Nodes\Statement\ClassNode;
 	'laravel/scope-attribute-for-scope-prefix',
 	Stage::Structure,
 	description: 'Marks a local scope of a model by the attribute `Scope` instead of the prefix `scope` of its name',
-	group: Group::Modernization,
+	group: RuleGroup::Modernization,
 	requires: ['laravel/framework' => '>=12.4'],
 )]
 final class ScopeAttributeForScopePrefixRule extends NodeRule
