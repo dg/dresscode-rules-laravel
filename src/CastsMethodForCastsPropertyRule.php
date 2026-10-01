@@ -84,9 +84,9 @@ final class CastsMethodForCastsPropertyRule extends NodeRule
 		$array = str_replace("\n", "\n" . $style->indent, Printer::print($default->withoutEdgeTrivia()));
 		$method = (new Parser)->parseFragment(
 			MethodNode::class,
-			(($property->modifiers->visibility ?? Visibility::Public) === Visibility::Public ? 'public' : 'protected') . ' function casts(): array' . $style->eol
-			. $indentation . '{' . $style->eol
-			. $indentation . $style->indent . 'return ' . $array . ';' . $style->eol
+			(($property->modifiers->visibility ?? Visibility::Public) === Visibility::Public ? 'public' : 'protected') . ' function casts(): array' . $style->lineEnding
+			. $indentation . '{' . $style->lineEnding
+			. $indentation . $style->indent . 'return ' . $array . ';' . $style->lineEnding
 			. $indentation . '}',
 		);
 		$property->replaceWith($method);
