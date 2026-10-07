@@ -63,36 +63,29 @@ Nette\Utils\FileSystem::write("$php/prepend.php", '<?php $map = ' . var_export(f
 	. ' putenv(' . var_export("APP_SERVICES_CACHE=$cache/services-", return: true) . ' . getmypid() . \'.php\');');
 
 $originals = hashFiles($corpus);
-// the data alone: overridingSignature declares what a child may leave out, which is no mistake of the data, and the
-// modernizations are offered for code that is right as it is
+// the data alone, the modernizations being offered for code that is right as it is
 $modernization = in_array('--modernization', $options, true);
-$rules = array_fill_keys(
-	$modernization ? ModernizationRules : array_diff(UpgradingRules, ['overridingSignature'], ModernizationRules),
-	true,
-);
+$only = $modernization ? ModernizationDecisions : array_diff(UpgradingDecisions, ModernizationDecisions);
+$libraries = ['packages' => 'adopted'];
 foreach ($options as $option) {
 	if (preg_match('~^--rename=(.+::\w+)=(\w+)$~', $option, $m)) {
-		$rules['replacedMembers'] = [$m[1] => $m[2]];
+		$libraries['replacedMembers'] = [$m[1] => $m[2]];
 	}
 }
 
-$installed = array_filter(array_map(
-	fn(array $package) => $package['version'],
-	DressCode\Config\ProjectPackages::read($root)->installed,
-));
 Nette\Utils\FileSystem::write("$root/$name.neon", Nette\Neon\Neon::encode([
-	'paths' => [$name],
-	'fileExtensions' => ['php'],
-	'types' => 'phpstan',
-	'packages' => $installed,
-	'rules' => $rules,
+	'paths' => $name,
+	'fileExtensions' => 'php',
+	'typeAnalysis' => 'phpstan',
+	'upgrading' => ['libraries' => $libraries],
+	'laravel' => SampleDecisions['laravel'],
 ], blockMode: true));
 
 $failed = false;
 $copies = [];
 foreach ([1, 2] as $run) {
 	$before = hashFiles($corpus);
-	exec('php -d auto_prepend_file=' . escapeshellarg("$php/prepend.php") . ' ' . escapeshellarg("$root/vendor/dresscode/dresscode/bin/dresscode") . ' fix --no-cache --fix-risky --format bare --config ' . escapeshellarg("$root/$name.neon") . ' 2>&1', $output, $exit);
+	exec('php -d auto_prepend_file=' . escapeshellarg("$php/prepend.php") . ' ' . escapeshellarg("$root/vendor/dresscode/dresscode/bin/dresscode") . ' fix --no-cache --fix-risky --format bare --config ' . escapeshellarg("$root/$name.neon") . implode('', array_map(fn(string $path) => ' --only ' . escapeshellarg($path), $only)) . ' 2>&1', $output, $exit);
 	if ($exit !== 0 && $exit !== 1) {
 		echo "run $run: dresscode exited with $exit\n" . implode("\n", array_slice($output, -30)) . "\n";
 		$failed = true;

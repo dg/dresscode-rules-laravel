@@ -12,27 +12,25 @@ const SampleDecisions = [
 ];
 
 
-/** The rules the corpus is run with: those the upgrading files feed, and those of this package that read the code alone. */
-const UpgradingRules = [
-	'replacedClasses',
-	'replacedMembers',
-	'replacedCalls',
-	'replacedFunctions',
-	'forbiddenClasses',
-	'forbiddenMembers',
-	'forbiddenFunctions',
-	'attributeForAnnotation',
-	'attributeForMember',
-	'overridingSignature',
-	'laravel/castsMethodForCastsProperty',
-	'laravel/scopeAttributeForScopePrefix',
+/** The decisions the corpus is run with: the maps the upgrading files feed, and the rules of this package that read the code alone. */
+const UpgradingDecisions = [
+	'upgrading.libraries.replacedClasses',
+	'upgrading.libraries.replacedMembers',
+	'upgrading.libraries.replacedCalls',
+	'upgrading.libraries.replacedFunctions',
+	'upgrading.libraries.forbiddenClasses',
+	'upgrading.libraries.forbiddenMembers',
+	'upgrading.libraries.forbiddenFunctions',
+	'upgrading.libraries.attributeForMember',
+	'laravel.castsMethod',
+	'laravel.scopeAttribute',
 ];
 
-/** The rules of UpgradingRules that offer a newer shape of code that is right as it is. */
-const ModernizationRules = [
-	'attributeForMember',
-	'laravel/castsMethodForCastsProperty',
-	'laravel/scopeAttributeForScopePrefix',
+/** The decisions of UpgradingDecisions that offer a newer shape of code that is right as it is. */
+const ModernizationDecisions = [
+	'upgrading.libraries.attributeForMember',
+	'laravel.castsMethod',
+	'laravel.scopeAttribute',
 ];
 
 
