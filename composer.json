@@ -48,8 +48,7 @@
 		"dresscode": {
 			"plugin": "DressCodeRules\\Laravel\\Plugin",
 			"upgrading": [
-				"upgrading/framework.neon",
-				"upgrading/framework-attributes.neon"
+				"upgrading/framework.neon"
 			]
 		}
 	}

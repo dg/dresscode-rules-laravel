@@ -257,8 +257,8 @@ The framework is in `require-dev` with Larastan and `orchestra/testbench`, so th
 installed version and the samples run with the types Larastan gives:
 
 - `php tests/check.php framework` lints `upgrading/framework.neon` and runs its sample, `tests/samples/framework.code`,
-  comparing the result with `.expected` and `.violations`; `php tests/check.php framework-attributes` does the same
-  for the attributes,
+  comparing the result with `.expected` and `.violations`; the attributes of 13 have a sample of their own,
+  `tests/samples/framework-attributes.code`,
 - `php tests/check.php <file> --update` writes those two from the run; read the diff, it is what the data do,
 - `vendor/bin/tester tests` runs all of it, the fixtures of the rules included,
 - `php tests/corpus.php <laravel>/tests` runs the data over the tests of the framework, which they must leave as they

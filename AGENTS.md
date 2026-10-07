@@ -6,12 +6,10 @@ It is my fervent wish that this file guide every AI coding agent working with co
 ## What this is
 
 Data for DressCode: what the versions of the Laravel framework renamed, moved and retired, and what to write
-instead. The unit is the intent, not the `illuminate/*` package, since an application requires the framework as a
-whole: `upgrading/framework.neon` with `package: laravel/framework` and `intent: deprecations`, and
-`upgrading/framework-attributes.neon` of the same package with `intent: modernizations`, the attributes of 13 that
-replace properties still working. Both are listed under `extra.dresscode.upgrading` of `composer.json`, and the
-framework itself is in `require-dev`, so that the data are checked against what is installed. DressCode is required
-as `dresscode/dresscode`.
+instead. The unit is the framework, not the `illuminate/*` package, since an application requires the framework as a
+whole: `upgrading/framework.neon` with `package: laravel/framework`, the attributes of 13 that replace properties still
+working among it. It is listed under `extra.dresscode.upgrading` of `composer.json`, and the framework itself is in
+`require-dev`, so that the data are checked against what is installed. DressCode is required as `dresscode/dresscode`.
 
 Where an entry comes from is the upgrade guide of Laravel (prose, the sentence about a PHP symbol being the entry)
 and the `@deprecated` hints of the framework, checked against the code of the framework at its tags: the tag
@@ -34,8 +32,7 @@ decides, not the guide.
 
 ## Writing the data
 
-- A file starts with `package: laravel/framework` and its `intent`, and goes on with sections `since <version>`, newest
-  first. The section is the minor version whose tag carries the deprecation first (`since 12.51` for `Request::get()`),
+- A file starts with `package: laravel/framework` and goes on with sections `since <version>`, newest first. The section is the minor version whose tag carries the deprecation first (`since 12.51` for `Request::get()`),
   found by `git grep @deprecated` at each minor tag; a member a major removed without deprecating it goes into the
   section of that major. The first section is `since 6`, for code written for 5.8: what 5.8 deprecated and 6 removed,
   the helpers `str_*` and `array_*` among it, goes into it; nothing older is written.
@@ -59,7 +56,7 @@ decides, not the guide.
 - A sentence of `forbidden*` is English, completes `… is forbidden:` and says what to write instead, lower case, its
   code in backticks, no period, at most 160 characters without the backticks; one with a comma or with parentheses goes in
   apostrophes.
-- An attribute of 13 goes into `framework-attributes.neon` as `attributeForMember`, its key the property of the class
+- An attribute of 13 goes into the section `since 13` as `attributeForMember`, its key the property of the class
   the framework reads it from (`Model::$table`), or of the interface for classes the framework declares nothing of
   (`ShouldQueue::$tries`); a literal default in the key stands for that value alone (`'Model::$timestamps = false'`).
 - A sample holds code of the old API the way an application writes it, a child overriding a method among it; the
@@ -68,6 +65,6 @@ decides, not the guide.
 ## The rules of the package
 
 What no map can say is a rule in `src/`, registered by `Plugin` and named `laravel/<slug>`:
-`laravel/castsMethodForCastsProperty` and `laravel/scopeAttributeForScopePrefix`, both of the intent
-`modernizations`. A rule has fixtures in `tests/fixtures/<slug>/`, and the samples run it together with the rules the
+`laravel/castsMethodForCastsProperty` and `laravel/scopeAttributeForScopePrefix`, both modernizations. A rule has
+fixtures in `tests/fixtures/<slug>/`, and the samples run it together with the rules the
 data feed.
